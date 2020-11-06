@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mobileCards>
+    <mobileCard cardNumber="13948794558">
+        <username>xhh</username>
+        <password>123456</password>
+        <servicePackage>无</servicePackage>
+        <consumAmount>0.0</consumAmount>
+        <money>0.0</money>
+        <realTalkTime>0</realTalkTime>
+        <realSMSCount>0</realSMSCount>
+        <realFlow>0</realFlow>
+        <registerTime>2020-11-06</registerTime>
+    </mobileCard>
+    <mobileCard cardNumber="13888888888">
+        <username>甲</username>
+        <password>123456</password>
+        <servicePackage>话唠套餐</servicePackage>
+        <consumAmount>0.0</consumAmount>
+        <money>0.0</money>
+        <realTalkTime>0</realTalkTime>
+        <realSMSCount>0</realSMSCount>
+        <realFlow>0</realFlow>
+        <registerTime>2020-11-06</registerTime>
+    </mobileCard>
+    <mobileCard cardNumber="13777777777">
+        <username>乙</username>
+        <password>123456</password>
+        <servicePackage>超人套餐</servicePackage>
+        <consumAmount>0.0</consumAmount>
+        <money>0.0</money>
+        <realTalkTime>0</realTalkTime>
+        <realSMSCount>0</realSMSCount>
+        <realFlow>0</realFlow>
+        <registerTime>2020-11-06</registerTime>
+    </mobileCard>
+    <mobileCard cardNumber="13666666666">
+        <username>丙</username>
+        <password>123456</password>
+        <servicePackage>网虫套餐</servicePackage>
+        <consumAmount>0.0</consumAmount>
+        <money>0.0</money>
+        <realTalkTime>0</realTalkTime>
+        <realSMSCount>0</realSMSCount>
+        <realFlow>0</realFlow>
+        <registerTime>2020-11-06</registerTime>
+    </mobileCard>
+</mobileCards>
