@@ -131,7 +131,7 @@ public class SystemServiceImpl implements SystemService {
         // 如果文件是空的，刚被建立的
         if (mobileCardFile.length() == 0) {
             // 初始化数据和文件
-            initDataAndInitFileWithMobileCard(mobileCardFile);
+            initDataAndInitFileWithMobileCard();
         } else {
             // 如果文件非空
             loadMobileCardFromXMLFile();
@@ -171,10 +171,8 @@ public class SystemServiceImpl implements SystemService {
     /**
      * 初始化数据和文件
      * 针对MobileCard
-     *
-     * @param file 文件
      */
-    private void initDataAndInitFileWithMobileCard(File file) {
+    private void initDataAndInitFileWithMobileCard() {
         // 直接初始化map数据
         MobileCard[] mobileCards = new MobileCard[3];
         mobileCards[0] = new MobileCard("13888888888", "甲", "123456");
@@ -267,5 +265,23 @@ public class SystemServiceImpl implements SystemService {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public String lookupMealAllowance(MobileCard card) {
+        // 获取套餐资源量化map
+        Map<String, Integer> map = card.getServicePackage() == null ? new HashMap<>() : card.getServicePackage().getAllowanceMap();
+
+        StringBuilder sb = new StringBuilder("*****本月账单查询*****\n");
+        sb.append("您的卡号是").append(card.getCardNumber()).append('\n');
+        sb.append("套餐内剩余:\n");
+        int talkTime = map.getOrDefault("talkTime", 0);
+        sb.append('\t').append("通话时长：").append(talkTime <= card.getRealTalkTime() ? 0 : talkTime - card.getRealTalkTime()).append('\n');
+        int smsCount = map.getOrDefault("smsCount", 0);
+        sb.append('\t').append("短信条数：").append(smsCount <= card.getRealSMSCount() ? 0 : smsCount - card.getRealSMSCount()).append('\n');
+        int flow = map.getOrDefault("flow", 0);
+        sb.append('\t').append("上网流量：").append(flow <= card.getRealFlow() ? 0 : flow - card.getRealFlow()).append('\n');
+
+        return sb.toString();
     }
 }

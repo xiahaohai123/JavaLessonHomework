@@ -57,16 +57,16 @@ public class MobileCard {
     /**
      * 从文件加载对象用的构造器
      *
-     * @param cardNumber
-     * @param username
-     * @param password
-     * @param servicePackage
-     * @param consumAmount
-     * @param money
-     * @param realTalkTime
-     * @param realSMSCount
-     * @param realFlow
-     * @param registerTime
+     * @param cardNumber     卡号
+     * @param username       名字
+     * @param password       密码
+     * @param servicePackage 套餐
+     * @param consumAmount   月度消费金额
+     * @param money          余额
+     * @param realTalkTime   已用通话时间
+     * @param realSMSCount   已用短信条数
+     * @param realFlow       已用流量
+     * @param registerTime   注册时间 long
      */
     public MobileCard(String cardNumber, String username, String password, ServicePackage servicePackage, Double consumAmount, Double money, Integer realTalkTime, Integer realSMSCount, Integer realFlow, Long registerTime) {
         this.cardNumber = cardNumber;

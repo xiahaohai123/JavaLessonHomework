@@ -1,5 +1,8 @@
 package entity.service_package;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @PackageName:entity
  * @ClassName:NetPackage
@@ -28,5 +31,12 @@ public class NetPackage extends ServicePackage {
     @Override
     public String getSelectString() {
         return "网虫套餐";
+    }
+
+    @Override
+    public Map<String, Integer> getAllowanceMap() {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("flow", flow);
+        return map;
     }
 }

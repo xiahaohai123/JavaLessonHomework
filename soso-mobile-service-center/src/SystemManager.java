@@ -31,6 +31,7 @@ public class SystemManager {
         while (runningFlag) {
             // 显示主菜单
             showMainMenu();
+            System.out.print("请输入对应序号使用相应功能：");
             // 读取输入
             int input = scannerUtil.getNumInSection(1, 7);
             switch (input) {
@@ -131,7 +132,7 @@ public class SystemManager {
         } else {
             // 登录成功
             System.out.println("登录成功！");
-
+            System.out.println("您好！用户" + card.getUsername());
             // 登录标志
             boolean loginFlag = true;
 
@@ -141,9 +142,11 @@ public class SystemManager {
                     case 1:
                         System.out.println("本月账单查询");
                         System.out.println(systemService.lookupBillCurMonth(card));
+                        System.out.println();
                         break;
                     case 2:
                         System.out.println("套餐余量查询");
+                        System.out.println(systemService.lookupMealAllowance(card));
                         break;
                     case 3:
                         System.out.println("打印消费详单");

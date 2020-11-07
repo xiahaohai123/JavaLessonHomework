@@ -1,5 +1,7 @@
 package entity.service_package;
 
+import java.util.Map;
+
 /**
  * @PackageName:entity
  * @ClassName:ServicePackage
@@ -25,7 +27,16 @@ public abstract class ServicePackage {
     /**
      * 获取工厂类选取字符串
      *
-     * @return
+     * @return String
      */
     public abstract String getSelectString();
+
+    /**
+     * 获取可用资源值
+     *
+     * @return map，包含所有资源的可用量
+     * 比如 flow:5(MB)
+     * 如果可用量为0可以用null表示
+     */
+    public abstract Map<String, Integer> getAllowanceMap();
 }

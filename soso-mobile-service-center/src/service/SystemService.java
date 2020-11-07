@@ -10,7 +10,7 @@ public interface SystemService {
      * 注册卡
      *
      * @param card card对象
-     * @return
+     * @return boolean 成功true
      */
     boolean registerMobileCard(MobileCard card);
 
@@ -18,7 +18,7 @@ public interface SystemService {
      * 卡是否已注册
      *
      * @param cardNum 卡号
-     * @return
+     * @return boolean true 说明已注册
      */
     boolean isExist(String cardNum);
 
@@ -29,9 +29,23 @@ public interface SystemService {
      *
      * @param cardNum  卡号
      * @param password 密码
-     * @return
+     * @return MobileCard 登录成功后返回的对象，失败返回null
      */
     MobileCard login(String cardNum, String password);
 
+    /**
+     * 查看本月账单
+     *
+     * @param card card
+     * @return 字符串
+     */
     String lookupBillCurMonth(MobileCard card);
+
+    /**
+     * 查看本月套餐余量
+     *
+     * @param card card
+     * @return 字符串
+     */
+    String lookupMealAllowance(MobileCard card);
 }

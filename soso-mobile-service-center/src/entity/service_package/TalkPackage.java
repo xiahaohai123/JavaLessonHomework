@@ -1,5 +1,8 @@
 package entity.service_package;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @PackageName:entity
  * @ClassName:TalkPackage
@@ -36,5 +39,13 @@ public class TalkPackage extends ServicePackage {
     @Override
     public String getSelectString() {
         return "话唠套餐";
+    }
+
+    @Override
+    public Map<String, Integer> getAllowanceMap() {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("talkTime", talkTime);
+        map.put("smsCount", smsCount);
+        return map;
     }
 }
