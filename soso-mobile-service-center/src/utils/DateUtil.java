@@ -13,11 +13,6 @@ import java.util.Date;
  * @Date: 2020/11/6 21:53
  */
 public class DateUtil {
-    private static SimpleDateFormat sdf;
-
-    static {
-        sdf = new SimpleDateFormat("yyyy-MM-dd");
-    }
 
     /**
      * 时间戳转字符串
@@ -26,11 +21,11 @@ public class DateUtil {
      * @return String 字符串
      */
     public static String millsToString(long mills) {
-        return sdf.format(new Date(mills));
+        return new SimpleDateFormat("yyyy-MM-dd").format(new Date(mills));
     }
 
     public static Date StringToDate(String timeString) throws ParseException {
-        return sdf.parse(timeString);
+        return new SimpleDateFormat("yyyy-MM-dd").parse(timeString);
 
     }
 
@@ -42,7 +37,14 @@ public class DateUtil {
      * @throws ParseException 如果输入有问题导致parse失败会抛出异常
      */
     public static long StringToMills(String timeString) throws ParseException {
-        return sdf.parse(timeString).getTime();
+        return new SimpleDateFormat("yyyy-MM-dd").parse(timeString).getTime();
     }
 
+    public static String millsToYyyyMM(long mills) {
+        return new SimpleDateFormat("yyyy-MM").format(mills);
+    }
+
+    public static long yyyyMMToMills(String timeString) throws ParseException {
+        return new SimpleDateFormat("yyyy-MM").parse(timeString).getTime();
+    }
 }

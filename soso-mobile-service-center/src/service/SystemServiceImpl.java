@@ -1,6 +1,6 @@
 package service;
 
-import entity.ConsumInfo;
+import entity.ConsumptionInfo;
 import entity.MobileCard;
 import entity.service_package.ServicePackage;
 import factory.ServicePackageFactory;
@@ -16,7 +16,9 @@ import utils.DateUtil;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +38,7 @@ public class SystemServiceImpl implements SystemService {
     // 卡表
     private Map<String, MobileCard> cardMap;
     // 消费列表表
-    private Map<String, List<ConsumInfo>> consumptionInfoListMap;
+    private Map<String, List<ConsumptionInfo>> consumptionInfoListMap;
 
     public SystemServiceImpl() {
         cardMap = new HashMap<>();
@@ -129,9 +131,13 @@ public class SystemServiceImpl implements SystemService {
 
 
         // 如果文件是空的，刚被建立的
-        if (mobileCardFile.length() == 0) {
+        if (mobileCardFile.length() == 0 || consumption.length() == 0) {
             // 初始化数据和文件
-            initDataAndInitFileWithMobileCard();
+            try {
+                initDataAndInitFile();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         } else {
             // 如果文件非空
             loadMobileCardFromXMLFile();
@@ -172,7 +178,7 @@ public class SystemServiceImpl implements SystemService {
      * 初始化数据和文件
      * 针对MobileCard
      */
-    private void initDataAndInitFileWithMobileCard() {
+    private void initDataAndInitFile() throws ParseException {
         // 直接初始化map数据
         MobileCard[] mobileCards = new MobileCard[3];
         mobileCards[0] = new MobileCard("13888888888", "甲", "123456");
@@ -188,6 +194,24 @@ public class SystemServiceImpl implements SystemService {
 
         // 保存到文件
         saveMobileCardToXMLFile();
+
+        List<ConsumptionInfo> lists0 = new ArrayList<>();
+        lists0.add(new ConsumptionInfo(mobileCards[0].getCardNumber(), 1024, 65, 80, DateUtil.StringToMills("2020-9-1")));
+        lists0.add(new ConsumptionInfo(mobileCards[0].getCardNumber(), 505, 310, 90, DateUtil.StringToMills("2020-10-1")));
+
+        List<ConsumptionInfo> lists1 = new ArrayList<>();
+        lists1.add(new ConsumptionInfo(mobileCards[1].getCardNumber(), 654, 65, 80, DateUtil.StringToMills("2020-9-1")));
+        lists1.add(new ConsumptionInfo(mobileCards[1].getCardNumber(), 505, 28, 60, DateUtil.StringToMills("2020-10-1")));
+
+        List<ConsumptionInfo> lists2 = new ArrayList<>();
+        lists2.add(new ConsumptionInfo(mobileCards[2].getCardNumber(), 6548, 32, 3, DateUtil.StringToMills("2020-9-1")));
+        lists2.add(new ConsumptionInfo(mobileCards[2].getCardNumber(), 8540, 10, 4, DateUtil.StringToMills("2020-10-1")));
+
+        consumptionInfoListMap.put(mobileCards[0].getCardNumber(), lists0);
+        consumptionInfoListMap.put(mobileCards[1].getCardNumber(), lists1);
+        consumptionInfoListMap.put(mobileCards[2].getCardNumber(), lists2);
+
+        saveConsumptionToXMLFile();
     }
 
     /**
@@ -233,6 +257,48 @@ public class SystemServiceImpl implements SystemService {
     }
 
     /**
+     * 保存consumption到文件
+     */
+    private void saveConsumptionToXMLFile() {
+        new Thread(() -> {
+            File file = getExistsFile(CONSUMPTION_SAVE_PATH);
+
+            Document document = DocumentHelper.createDocument();
+            Element mobileCardsElement = document.addElement("mobileCards");
+
+            consumptionInfoListMap.forEach((cardNumber, consumptionList) -> {
+                Element mobileCardElement = mobileCardsElement.addElement("mobileCard");
+                // 标记属性
+                mobileCardElement.addAttribute("cardNumber", cardNumber);
+                // 添加消费清单
+                Element consumptionsElement = mobileCardElement.addElement("consumptions");
+                for (ConsumptionInfo consumptionInfo : consumptionList) {
+                    // 遍历写入消费清单
+                    Element consumptionElement = consumptionsElement.addElement("consumption");
+                    consumptionElement.addAttribute("time", DateUtil.millsToYyyyMM(consumptionInfo.getYyyyMMMills()));
+                    consumptionElement.addElement("consumedFlow").addText(String.valueOf(consumptionInfo.getConsumedFlow()));
+                    consumptionElement.addElement("consumedTalkTime").addText(String.valueOf(consumptionInfo.getConsumedTalkTime()));
+                    consumptionElement.addElement("consumedSMSCount").addText(String.valueOf(consumptionInfo.getConsumedSMSCount()));
+                }
+
+            });
+
+            //写入文件，保存数据
+            try (FileWriter fw = new FileWriter(file)) {
+                OutputFormat format = OutputFormat.createPrettyPrint();
+                XMLWriter xmlWriter = new XMLWriter(fw, format);
+                xmlWriter.write(document);
+                // 关闭输出流
+                xmlWriter.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }).start();
+    }
+
+    /**
      * 从文件里取出数据加载类MobileCard并加入map
      */
     private void loadMobileCardFromXMLFile() {
@@ -240,6 +306,7 @@ public class SystemServiceImpl implements SystemService {
 
         SAXReader saxReader = new SAXReader();
         try {
+            // 用户文档
             Document cardFileDocument = saxReader.read(file);
             // 获取根节点 mobileCards
             Element mobileCardsElement = cardFileDocument.getRootElement();
@@ -260,6 +327,24 @@ public class SystemServiceImpl implements SystemService {
                         servicePackage, consumAmount, money, realTalkTime, realSMSCount, realFlow,
                         registerTime));
             }
+
+            // 消费文档
+            Document consumptionDocument = saxReader.read(getExistsFile(CONSUMPTION_SAVE_PATH));
+            mobileCardsElement = consumptionDocument.getRootElement();
+            // 遍历用户数据
+            for (Element mobileCardElement : mobileCardsElement.elements()) {
+                String cardNumber = mobileCardElement.attributeValue("cardNumber");
+                List<ConsumptionInfo> consumptionInfoList = new ArrayList<>();
+                for (Element consumptionElement : mobileCardElement.element("consumptions").elements()) {
+                    consumptionInfoList.add(new ConsumptionInfo(cardNumber,
+                            Integer.parseInt(consumptionElement.elementText("consumedFlow")),
+                            Integer.parseInt(consumptionElement.elementText("consumedTalkTime")),
+                            Integer.parseInt(consumptionElement.elementText("consumedSMSCount")),
+                            DateUtil.yyyyMMToMills(consumptionElement.attributeValue("time"))));
+                }
+                // 加入到map
+                consumptionInfoListMap.put(cardNumber, consumptionInfoList);
+            }
         } catch (DocumentException e) {
             System.out.println("读取用户文档失败！");
         } catch (ParseException e) {
@@ -276,11 +361,19 @@ public class SystemServiceImpl implements SystemService {
         sb.append("您的卡号是").append(card.getCardNumber()).append('\n');
         sb.append("套餐内剩余:\n");
         int talkTime = map.getOrDefault("talkTime", 0);
-        sb.append('\t').append("通话时长：").append(talkTime <= card.getRealTalkTime() ? 0 : talkTime - card.getRealTalkTime()).append('\n');
+        sb.append('\t').append("通话时长：").append(talkTime <= card.getRealTalkTime() ? 0 : talkTime - card.getRealTalkTime()).append("分钟\n");
         int smsCount = map.getOrDefault("smsCount", 0);
-        sb.append('\t').append("短信条数：").append(smsCount <= card.getRealSMSCount() ? 0 : smsCount - card.getRealSMSCount()).append('\n');
+        sb.append('\t').append("短信条数：").append(smsCount <= card.getRealSMSCount() ? 0 : smsCount - card.getRealSMSCount()).append("条\n");
         int flow = map.getOrDefault("flow", 0);
-        sb.append('\t').append("上网流量：").append(flow <= card.getRealFlow() ? 0 : flow - card.getRealFlow()).append('\n');
+        flow = flow <= card.getRealFlow() ? 0 : flow - card.getRealFlow();
+        sb.append('\t').append("上网流量：");
+        // 超出1GB按GB显示
+        if (flow > 1024) {
+            sb.append(new DecimalFormat("0.0").format(flow / 1024.0)).append("GB\n");
+        } else {
+            sb.append(flow).append("MB\n");
+        }
+
 
         return sb.toString();
     }
