@@ -2,6 +2,7 @@ package service;
 
 import entity.ConsumptionInfo;
 import entity.MobileCard;
+import entity.Scene;
 import entity.service_package.ServicePackage;
 import factory.ServicePackageFactory;
 import org.dom4j.Document;
@@ -16,10 +17,7 @@ import utils.DateUtil;
 import java.io.*;
 import java.text.DecimalFormat;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -34,14 +32,17 @@ public class SystemServiceImpl implements SystemService {
     private static final String MOBILE_CARD_SAVE_PATH = "soso-mobile-service-center/save/mobile-card.xml";
     private static final String CONSUMPTION_SAVE_PATH = "soso-mobile-service-center/save/consumption.xml";
 
+    // 场景列表
+    private static List<Scene> sceneList;
     // 卡表
     private Map<String, MobileCard> cardMap;
     // 消费列表表
-    private Map<String, List<ConsumptionInfo>> consumptionInfoListMap;
+    private Map<String, LinkedList<ConsumptionInfo>> consumptionInfoListMap;
 
     public SystemServiceImpl() {
         cardMap = new HashMap<>();
         consumptionInfoListMap = new HashMap<>();
+        sceneList = new ArrayList<>();
 
         initData();
     }
@@ -51,6 +52,11 @@ public class SystemServiceImpl implements SystemService {
      */
     private void initData() {
         getDataFromFiles();
+
+        sceneList.add(new Scene(30, 0, 0, "和妈妈聊天，聊了30分钟。"));
+        sceneList.add(new Scene(10, 2, 0, "做志愿活动，沟通了10分钟，发了2条短信。"));
+        sceneList.add(new Scene(0, 0, 24, "用热点玩了一局英雄联盟，消耗了24MB流量。"));
+        sceneList.add(new Scene(0, 0, 5126, "用热点下载了一会GTA5，消耗了5126MB流量。"));
     }
 
     /**
@@ -196,15 +202,15 @@ public class SystemServiceImpl implements SystemService {
         // 保存到文件
         saveMobileCardToXMLFile();
 
-        List<ConsumptionInfo> lists0 = new ArrayList<>();
+        LinkedList<ConsumptionInfo> lists0 = new LinkedList<>();
         lists0.add(new ConsumptionInfo(mobileCards[0].getCardNumber(), 1024, 65, 80, DateUtil.StringToMills("2020-9-1")));
         lists0.add(new ConsumptionInfo(mobileCards[0].getCardNumber(), 505, 310, 90, DateUtil.StringToMills("2020-10-1")));
 
-        List<ConsumptionInfo> lists1 = new ArrayList<>();
+        LinkedList<ConsumptionInfo> lists1 = new LinkedList<>();
         lists1.add(new ConsumptionInfo(mobileCards[1].getCardNumber(), 654, 65, 80, DateUtil.StringToMills("2020-9-1")));
         lists1.add(new ConsumptionInfo(mobileCards[1].getCardNumber(), 505, 28, 60, DateUtil.StringToMills("2020-10-1")));
 
-        List<ConsumptionInfo> lists2 = new ArrayList<>();
+        LinkedList<ConsumptionInfo> lists2 = new LinkedList<>();
         lists2.add(new ConsumptionInfo(mobileCards[2].getCardNumber(), 6548, 32, 3, DateUtil.StringToMills("2020-9-1")));
         lists2.add(new ConsumptionInfo(mobileCards[2].getCardNumber(), 8540, 10, 4, DateUtil.StringToMills("2020-10-1")));
 
@@ -337,7 +343,7 @@ public class SystemServiceImpl implements SystemService {
             // 遍历用户数据
             for (Element mobileCardElement : mobileCardsElement.elements()) {
                 String cardNumber = mobileCardElement.attributeValue("cardNumber");
-                List<ConsumptionInfo> consumptionInfoList = new ArrayList<>();
+                LinkedList<ConsumptionInfo> consumptionInfoList = new LinkedList<>();
                 for (Element consumptionElement : mobileCardElement.element("consumptions").elements()) {
                     consumptionInfoList.add(new ConsumptionInfo(cardNumber,
                             Integer.parseInt(consumptionElement.elementText("consumedFlow")),
@@ -345,6 +351,8 @@ public class SystemServiceImpl implements SystemService {
                             Integer.parseInt(consumptionElement.elementText("consumedSMSCount")),
                             DateUtil.yyyyMMToMills(consumptionElement.attributeValue("time"))));
                 }
+                // 排序 必须要除以1000防止精度丢失
+                consumptionInfoList.sort((o1, o2) -> (int) ((o2.getYyyyMMMills() - o1.getYyyyMMMills()) / 1000));
                 // 加入到map
                 consumptionInfoListMap.put(cardNumber, consumptionInfoList);
             }
@@ -455,12 +463,62 @@ public class SystemServiceImpl implements SystemService {
         return true;
     }
 
+    /**
+     * 充值话费
+     *
+     * @param card card
+     * @param fee  充值费用
+     * @return 成功与否
+     */
     @Override
     public boolean chargeCard(MobileCard card, double fee) {
         // 添加费用
         card.chargeMoney(fee);
         // 保存
-        saveConsumptionToXMLFile();
+        saveMobileCardToXMLFile();
         return true;
+    }
+
+    @Override
+    public String useSoSo(MobileCard card) {
+        Scene scene = sceneList.get((int) (Math.random() * sceneList.size()));
+        // 新东西 computeIfAbsent
+        // 如果没有消费详单列表则创建一个并加入map
+        LinkedList<ConsumptionInfo> consumptionInfoList = consumptionInfoListMap.computeIfAbsent(card.getCardNumber(), k -> new LinkedList<>());
+
+
+        ConsumptionInfo consumptionInfo;
+        // 如果没有消费详单或没有当月消费详单
+        // 判断的时候顺便取到消费详单
+        // get(0)是因为列表按时间降序排序，0为最近的时间
+        if (consumptionInfoList.size() == 0 || !(DateUtil.millsToYyyyMM((consumptionInfo = (consumptionInfoList.get(0))).getYyyyMMMills())).equals(DateUtil.millsToYyyyMM(System.currentTimeMillis()))) {
+            consumptionInfo = new ConsumptionInfo(card.getCardNumber());
+            consumptionInfoList.addFirst(consumptionInfo);
+        }
+
+        // 打电话
+        if (scene.getTalkTime() != 0) {
+            card.call(scene.getTalkTime());
+            consumptionInfo.addConsumedTalkTime(scene.getTalkTime());
+        }
+        // 发信息
+        int smsCount;
+        if ((smsCount = scene.getSmsCount()) != 0) {
+            while (smsCount-- > 0) {
+                card.send();
+            }
+            consumptionInfo.addConsumedSMSCount(smsCount);
+        }
+        // 用流量
+        if (scene.getFlow() != 0) {
+            card.netPlay(scene.getFlow());
+            consumptionInfo.addConsumedflow(scene.getFlow());
+        }
+
+        // 保存到文件
+        saveConsumptionToXMLFile();
+        saveMobileCardToXMLFile();
+
+        return scene.getDescription();
     }
 }

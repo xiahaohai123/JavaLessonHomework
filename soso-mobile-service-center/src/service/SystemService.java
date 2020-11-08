@@ -90,4 +90,12 @@ public interface SystemService {
      * @return boolean 成功与否
      */
     boolean chargeCard(MobileCard card, double fee);
+
+    /**
+     * 使用搜搜消费
+     *
+     * @param card card
+     * @return string 事项描述
+     */
+    String useSoSo(MobileCard card);
 }

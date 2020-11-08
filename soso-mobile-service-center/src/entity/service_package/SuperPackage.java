@@ -19,8 +19,8 @@ public class SuperPackage extends ServicePackage {
     // 可用流量(MB)
     private int flow;
 
-    public SuperPackage(double price, int talkTime, int smsCount, int flow) {
-        super(price);
+    public SuperPackage(double price, double beyondTalkTimePrice, double beyondSMSCountPrice, double beyondFlowPrice, int talkTime, int smsCount, int flow) {
+        super(price, beyondTalkTimePrice, beyondSMSCountPrice, beyondFlowPrice);
         this.talkTime = talkTime;
         this.smsCount = smsCount;
         this.flow = flow;

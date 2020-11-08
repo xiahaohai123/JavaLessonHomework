@@ -13,13 +13,34 @@ import java.util.Map;
 public abstract class ServicePackage {
     private double price;
 
-    public ServicePackage(double price) {
-        this.price = price;
-    }
+    // 超出通话时长单价（元/分钟）
+    private double beyondTalkTimePrice;
+    // 超出短信单价（元/条）
+    private double beyondSMSCountPrice;
+    // 流量超出单价（元/MB）
+    private double beyondFlowPrice;
 
+    public ServicePackage(double price, double beyondTalkTimePrice, double beyondSMSCountPrice, double beyondFlowPrice) {
+        this.price = price;
+        this.beyondTalkTimePrice = beyondTalkTimePrice;
+        this.beyondSMSCountPrice = beyondSMSCountPrice;
+        this.beyondFlowPrice = beyondFlowPrice;
+    }
 
     public double getPrice() {
         return price;
+    }
+
+    public double getBeyondTalkTimePrice() {
+        return beyondTalkTimePrice;
+    }
+
+    public double getBeyondSMSCountPrice() {
+        return beyondSMSCountPrice;
+    }
+
+    public double getBeyondFlowPrice() {
+        return beyondFlowPrice;
     }
 
     public abstract String showInfo();

@@ -1,6 +1,11 @@
 package entity;
 
 import entity.service_package.ServicePackage;
+import service.CallService;
+import service.NetService;
+import service.SendService;
+
+import java.math.BigDecimal;
 
 /**
  * @PackageName:entity
@@ -10,7 +15,7 @@ import entity.service_package.ServicePackage;
  * @Author 夏浩海
  * @Date 2020/11/6 9:53
  */
-public class MobileCard {
+public class MobileCard implements CallService, NetService, SendService {
     // 卡号
     private String cardNumber;
     // 用户名
@@ -150,4 +155,65 @@ public class MobileCard {
         return registerTime;
     }
 
+    /**
+     * 打电话
+     * 1、判断打电话前时间是否超时
+     * **1）、如果已超时，则直接按超时加算
+     * **2）、未超时
+     * ****a、若此次电话时间+已用时间未超时，则按套餐内算
+     * ****b、若综合超时，则超出部分加算
+     * 2、生成新的消费单
+     *
+     * @param talkTime
+     */
+    @Override
+    public void call(int talkTime) {
+        int maxTalkTime = servicePackage.getAllowanceMap().getOrDefault("talkTime", 0);
+        // 如果已超时
+        if (realTalkTime >= maxTalkTime) {
+            // 因为精度问题使用decimal
+            BigDecimal bigDecimal = new BigDecimal(String.valueOf(servicePackage.getBeyondTalkTimePrice()));
+            bigDecimal = bigDecimal.multiply(new BigDecimal(talkTime));
+            consumAmount += bigDecimal.doubleValue();
+        } else {
+            if (realTalkTime + talkTime > maxTalkTime) {
+                // 套餐外超时加算
+                consumAmount += new BigDecimal(String.valueOf(servicePackage.getBeyondTalkTimePrice())).multiply(new BigDecimal(realTalkTime + talkTime - maxTalkTime)).doubleValue();
+            }
+        }
+        realTalkTime += talkTime;
+
+    }
+
+    /**
+     * 上网
+     * 计算策略同打电话
+     *
+     * @param flow 流量（MB）
+     */
+    @Override
+    public void netPlay(int flow) {
+        int maxFlow = servicePackage.getAllowanceMap().getOrDefault("flow", 0);
+        if (realFlow >= maxFlow) {
+            consumAmount += new BigDecimal(String.valueOf(servicePackage.getBeyondFlowPrice())).multiply(new BigDecimal(flow)).doubleValue();
+        } else {
+            if (realFlow + flow > maxFlow) {
+                consumAmount += new BigDecimal(String.valueOf(servicePackage.getBeyondFlowPrice())).multiply(new BigDecimal(realFlow + flow - maxFlow)).doubleValue();
+            }
+        }
+        realFlow += flow;
+    }
+
+    /**
+     * 发短信
+     * 如果已发短信条数大于套餐数量就按超量加算
+     */
+    @Override
+    public void send() {
+        if (realSMSCount >= servicePackage.getAllowanceMap().getOrDefault("smsCount", 0)) {
+            // 超量加算
+            consumAmount += new BigDecimal(String.valueOf(servicePackage.getBeyondSMSCountPrice())).doubleValue();
+        }
+        realSMSCount++;
+    }
 }

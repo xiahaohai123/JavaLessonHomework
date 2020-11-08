@@ -169,7 +169,8 @@ public class SystemManager {
                         }
                         break;
                     case 6:
-                        System.out.println("使用嗖嗖");
+                        System.out.println("*****使用嗖嗖*****");
+                        System.out.println(systemService.useSoSo(card));
                         break;
                     case 7:
                         System.out.println("*****话费充值*****");

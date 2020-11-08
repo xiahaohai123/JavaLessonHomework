@@ -16,11 +16,11 @@ import entity.service_package.TalkPackage;
 public class ServicePackageFactory {
     public static ServicePackage getServicePackage(String serviceString) {
         if ("网虫套餐".equals(serviceString)) {
-            return new NetPackage(68, 5 * 1024);
+            return new NetPackage(68, 0.2, 0.1, 0.1, 5 * 1024);
         } else if ("超人套餐".equals(serviceString)) {
-            return new SuperPackage(78, 200, 100, 1024);
+            return new SuperPackage(78, 0.2, 0.1, 0.1, 200, 100, 1024);
         } else if ("话唠套餐".equals(serviceString)) {
-            return new TalkPackage(58, 200, 50);
+            return new TalkPackage(58, 0.2, 0.1, 0.1, 200, 50);
         } else {
             return null;
         }

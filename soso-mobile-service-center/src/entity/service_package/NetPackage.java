@@ -15,8 +15,8 @@ public class NetPackage extends ServicePackage {
     // 可用流量(MB)
     private int flow;
 
-    public NetPackage(double price, int flow) {
-        super(price);
+    public NetPackage(double price, double beyondTalkTimePrice, double beyondSMSCountPrice, double beyondFlowPrice, int flow) {
+        super(price, beyondTalkTimePrice, beyondSMSCountPrice, beyondFlowPrice);
         this.flow = flow;
     }
 

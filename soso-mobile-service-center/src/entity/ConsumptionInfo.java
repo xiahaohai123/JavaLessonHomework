@@ -30,6 +30,7 @@ public class ConsumptionInfo {
         consumedFlow = 0;
         consumedTalkTime = 0;
         consumedSMSCount = 0;
+        yyyyMMMills = System.currentTimeMillis();
     }
 
     /**

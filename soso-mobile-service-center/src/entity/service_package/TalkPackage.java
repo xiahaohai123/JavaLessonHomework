@@ -17,8 +17,8 @@ public class TalkPackage extends ServicePackage {
     // 可用信息条数(条)
     private int smsCount;
 
-    public TalkPackage(double price, int talkTime, int smsCount) {
-        super(price);
+    public TalkPackage(double price, double beyondTalkTimePrice, double beyondSMSCountPrice, double beyondFlowPrice, int talkTime, int smsCount) {
+        super(price, beyondTalkTimePrice, beyondSMSCountPrice, beyondFlowPrice);
         this.talkTime = talkTime;
         this.smsCount = smsCount;
     }

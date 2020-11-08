@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mobileCards>
+    <mobileCard cardNumber="13888888888">
+        <consumptions>
+            <consumption time="2020-11">
+                <consumedFlow>5150</consumedFlow>
+                <consumedTalkTime>120</consumedTalkTime>
+                <consumedSMSCount>0</consumedSMSCount>
+            </consumption>
+            <consumption time="2020-10">
+                <consumedFlow>505</consumedFlow>
+                <consumedTalkTime>310</consumedTalkTime>
+                <consumedSMSCount>90</consumedSMSCount>
+            </consumption>
+            <consumption time="2020-09">
+                <consumedFlow>1024</consumedFlow>
+                <consumedTalkTime>65</consumedTalkTime>
+                <consumedSMSCount>80</consumedSMSCount>
+            </consumption>
+        </consumptions>
+    </mobileCard>
+    <mobileCard cardNumber="13777777777">
+        <consumptions>
+            <consumption time="2020-10">
+                <consumedFlow>505</consumedFlow>
+                <consumedTalkTime>28</consumedTalkTime>
+                <consumedSMSCount>60</consumedSMSCount>
+            </consumption>
+            <consumption time="2020-09">
+                <consumedFlow>654</consumedFlow>
+                <consumedTalkTime>65</consumedTalkTime>
+                <consumedSMSCount>80</consumedSMSCount>
+            </consumption>
+        </consumptions>
+    </mobileCard>
+</mobileCards>

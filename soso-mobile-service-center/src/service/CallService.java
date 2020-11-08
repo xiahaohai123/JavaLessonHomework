@@ -1,7 +1,5 @@
 package service;
 
-import entity.MobileCard;
-
 /**
  * @PackageName:service
  * @ClassName:CallService
@@ -11,5 +9,5 @@ import entity.MobileCard;
  * @Date 2020/11/6 14:25
  */
 public interface CallService {
-    boolean call(MobileCard mobileCard);
+    void call(int talkTime);
 }

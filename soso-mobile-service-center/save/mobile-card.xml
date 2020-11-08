@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mobileCards>
+  <mobileCard cardNumber="13888888888">
+    <username>甲</username>
+    <password>123456</password>
+    <servicePackage>话唠套餐</servicePackage>
+    <nextServicePackage>网虫套餐</nextServicePackage>
+    <consumAmount>515.0</consumAmount>
+    <money>30.0</money>
+    <realTalkTime>120</realTalkTime>
+    <realSMSCount>0</realSMSCount>
+    <realFlow>5150</realFlow>
+    <registerTime>2020-11-08</registerTime>
+  </mobileCard>
+  <mobileCard cardNumber="13777777777">
+    <username>乙</username>
+    <password>123456</password>
+    <servicePackage>超人套餐</servicePackage>
+    <nextServicePackage>超人套餐</nextServicePackage>
+    <consumAmount>0.0</consumAmount>
+    <money>0.0</money>
+    <realTalkTime>0</realTalkTime>
+    <realSMSCount>0</realSMSCount>
+    <realFlow>0</realFlow>
+    <registerTime>2020-11-08</registerTime>
+  </mobileCard>
+</mobileCards>
