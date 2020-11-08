@@ -27,7 +27,7 @@ public class ScannerUtil {
      *
      * @return
      */
-    public int getNumInSection(int start, int end) {
+    public int nextNumInSection(int start, int end) {
         for (; ; ) {
             try {
                 int res = sc.nextInt();

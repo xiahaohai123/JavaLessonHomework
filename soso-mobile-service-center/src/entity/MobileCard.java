@@ -19,6 +19,8 @@ public class MobileCard {
     private String password;
     // 使用的套餐 加载的时候用工厂模式
     private ServicePackage servicePackage;
+    // 次月生效的套餐
+    private ServicePackage nextServicePackage;
     // 消费的钱
     private Double consumAmount;
     // 余额
@@ -45,6 +47,7 @@ public class MobileCard {
         this.password = password;
         // 为什么不默认初始化？ 因为声明的是包装类，默认初始化会初始化成null
         this.servicePackage = null;
+        this.nextServicePackage = null;
         this.consumAmount = 0.0;
         this.money = 0.0;
         this.realTalkTime = 0;
@@ -57,22 +60,24 @@ public class MobileCard {
     /**
      * 从文件加载对象用的构造器
      *
-     * @param cardNumber     卡号
-     * @param username       名字
-     * @param password       密码
-     * @param servicePackage 套餐
-     * @param consumAmount   月度消费金额
-     * @param money          余额
-     * @param realTalkTime   已用通话时间
-     * @param realSMSCount   已用短信条数
-     * @param realFlow       已用流量
-     * @param registerTime   注册时间 long
+     * @param cardNumber         卡号
+     * @param username           名字
+     * @param password           密码
+     * @param servicePackage     套餐
+     * @param nextServicePackage 次月套餐
+     * @param consumAmount       月度消费金额
+     * @param money              余额
+     * @param realTalkTime       已用通话时间
+     * @param realSMSCount       已用短信条数
+     * @param realFlow           已用流量
+     * @param registerTime       注册时间 long
      */
-    public MobileCard(String cardNumber, String username, String password, ServicePackage servicePackage, Double consumAmount, Double money, Integer realTalkTime, Integer realSMSCount, Integer realFlow, Long registerTime) {
+    public MobileCard(String cardNumber, String username, String password, ServicePackage servicePackage, ServicePackage nextServicePackage, Double consumAmount, Double money, Integer realTalkTime, Integer realSMSCount, Integer realFlow, Long registerTime) {
         this.cardNumber = cardNumber;
         this.username = username;
         this.password = password;
         this.servicePackage = servicePackage;
+        this.nextServicePackage = nextServicePackage;
         this.consumAmount = consumAmount;
         this.money = money;
         this.realTalkTime = realTalkTime;
@@ -107,8 +112,16 @@ public class MobileCard {
         return servicePackage;
     }
 
-    public void setServicePackage(ServicePackage servicePackage) {
-        this.servicePackage = servicePackage;
+    public void changeServicePackage() {
+        this.servicePackage = nextServicePackage;
+    }
+
+    public void setNextServicePackage(ServicePackage nextServicePackage) {
+        this.nextServicePackage = nextServicePackage;
+    }
+
+    public ServicePackage getNextServicePackage() {
+        return nextServicePackage;
     }
 
     public double getConsumAmount() {

@@ -1,4 +1,6 @@
 import entity.MobileCard;
+import entity.service_package.ServicePackage;
+import factory.ServicePackageFactory;
 import service.SystemService;
 import service.SystemServiceImpl;
 import utils.CardUtil;
@@ -33,7 +35,7 @@ public class SystemManager {
             showMainMenu();
             System.out.print("请输入对应序号使用相应功能：");
             // 读取输入
-            int input = scannerUtil.getNumInSection(1, 7);
+            int input = scannerUtil.nextNumInSection(0, 4);
             switch (input) {
                 case 1:
                     // 用户登录
@@ -44,15 +46,10 @@ public class SystemManager {
                     registerModule();
                     break;
                 case 3:
-                    System.out.println("使用嗖嗖");
+                    System.out.println("\n*****资费说明*****");
+                    System.out.println(systemService.getExpensesDescription());
                     break;
-                case 4:
-                    System.out.println("话费充值");
-                    break;
-                case 5:
-                    System.out.println("资费说明");
-                    break;
-                case 6:
+                case 0:
                     System.out.println("退出系统");
                     runningFlag = false;
                     break;
@@ -63,7 +60,7 @@ public class SystemManager {
 
     private void showMainMenu() {
         System.out.println("*****************欢迎使用嗖嗖移动业务大厅*****************" +
-                "\n1、用户登录\t2、用户注册\t3、使用嗖嗖\t4、话费充值\t5、资费说明\t6、退出系统\n");
+                "\n1、用户登录\t2、用户注册\t3、资费说明\t0、退出系统\n");
     }
 
     /**
@@ -91,7 +88,7 @@ public class SystemManager {
         System.out.print(sb);
 
         while (true) {
-            int targetIndex = scannerUtil.getNumInSection(1, 10) - 1;
+            int targetIndex = scannerUtil.nextNumInSection(1, 10) - 1;
             // 号码已注册
             if (systemService.isExist(numArray[targetIndex])) {
                 System.out.println("您要选的号码已被注册，请重新选择");
@@ -138,31 +135,81 @@ public class SystemManager {
 
             while (loginFlag) {
                 showUserMenu();
-                switch (scannerUtil.getNumInSection(1, 7)) {
+                System.out.print("请输入序号以进行对应操作：");
+                switch (scannerUtil.nextNumInSection(0, 8)) {
                     case 1:
-                        System.out.println("本月账单查询");
+                        // 查询月度账单
+                        System.out.println("*****本月账单查询*****");
                         System.out.println(systemService.lookupBillCurMonth(card));
                         System.out.println();
                         break;
                     case 2:
-                        System.out.println("套餐余量查询");
+                        // 查询套餐余量
+                        System.out.println("*****套餐余量查询*****");
                         System.out.println(systemService.lookupMealAllowance(card));
                         break;
                     case 3:
-                        System.out.println("打印消费详单");
+                        // 查询消费详单
+                        System.out.println("*****消费详单查询*****");
+                        System.out.println(systemService.getConsumptionInfoList(card));
                         break;
                     case 4:
-                        System.out.println("套餐变更");
+                        // 套餐变更
+                        changeMenuModule(card);
                         break;
                     case 5:
                         System.out.println("办理退网");
                         break;
                     case 6:
+                        System.out.println("使用嗖嗖");
+                        break;
+                    case 7:
+                        System.out.println("话费充值");
+                        break;
+                    case 0:
                         loginFlag = false;
                         System.out.println(card.getCardNumber() + " 退出登录");
                         break;
                 }
             }
+        }
+    }
+
+    /**
+     * 变更套餐模块
+     *
+     * @param card 目标用户
+     */
+    private void changeMenuModule(MobileCard card) {
+        System.out.println("*****套餐资费说明*****");
+        System.out.println(systemService.getExpensesDescription());
+        System.out.println("请选择您需要的套餐：\n" +
+                "\t1.超人套餐\n" +
+                "\t2.网虫套餐\n" +
+                "\t3.话唠套餐\n");
+
+        int input = scannerUtil.nextNumInSection(1, 4);
+        ServicePackage nextServicePackage = null;
+        switch (input) {
+            case 1:
+                nextServicePackage = ServicePackageFactory.getServicePackage("超人套餐");
+                break;
+            case 2:
+                nextServicePackage = ServicePackageFactory.getServicePackage("网虫套餐");
+                break;
+            case 3:
+                nextServicePackage = ServicePackageFactory.getServicePackage("话唠套餐");
+                break;
+        }
+
+        if (nextServicePackage == null) {
+            System.out.println("套餐变更失败！");
+        } else {
+            // 变更次月套餐
+            systemService.changeNextMenu(card, nextServicePackage);
+            System.out.println("您选择的套餐：" +
+                    nextServicePackage.getSelectString() +
+                    "\n套餐变更成功，次月生效!");
         }
     }
 
@@ -176,6 +223,8 @@ public class SystemManager {
                 "3.打印消费详单\n" +
                 "4.套餐变更\n" +
                 "5.办理退网\n" +
-                "6.退出登录\n");
+                "6.使用嗖嗖\n" +
+                "7.话费充值\n" +
+                "0.退出登录\n");
     }
 }

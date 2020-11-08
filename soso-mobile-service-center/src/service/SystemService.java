@@ -1,6 +1,7 @@
 package service;
 
 import entity.MobileCard;
+import entity.service_package.ServicePackage;
 
 /**
  * 负责处理大厅业务
@@ -48,4 +49,28 @@ public interface SystemService {
      * @return 字符串
      */
     String lookupMealAllowance(MobileCard card);
+
+    /**
+     * 查看消费详单
+     *
+     * @param card card
+     * @return string
+     */
+    String getConsumptionInfoList(MobileCard card);
+
+    /**
+     * 更换套餐
+     *
+     * @param card           card
+     * @param servicePackage service
+     * @return boolean 更换是否成功
+     */
+    boolean changeNextMenu(MobileCard card, ServicePackage servicePackage);
+
+    /**
+     * 获取资费说明
+     *
+     * @return String 资费说明
+     */
+    String getExpensesDescription();
 }

@@ -13,15 +13,14 @@ import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 import utils.DateUtil;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @PackageName: service
@@ -113,8 +112,7 @@ public class SystemServiceImpl implements SystemService {
      */
     @Override
     public String lookupBillCurMonth(MobileCard card) {
-        return "*****本月账单查询*****" +
-                "\n您的卡号：" + card.getCardNumber() +
+        return "\n您的卡号：" + card.getCardNumber() +
                 "\n当月账单：\n" +
                 "\t套餐资费：" + (card.getServicePackage() == null ? "0.0" : card.getServicePackage().getPrice()) +
                 "\n\t合计：" + card.getConsumAmount() +
@@ -184,9 +182,12 @@ public class SystemServiceImpl implements SystemService {
         mobileCards[0] = new MobileCard("13888888888", "甲", "123456");
         mobileCards[1] = new MobileCard("13777777777", "乙", "123456");
         mobileCards[2] = new MobileCard("13666666666", "丙", "123456");
-        mobileCards[0].setServicePackage(ServicePackageFactory.getServicePackage("话唠套餐"));
-        mobileCards[1].setServicePackage(ServicePackageFactory.getServicePackage("超人套餐"));
-        mobileCards[2].setServicePackage(ServicePackageFactory.getServicePackage("网虫套餐"));
+        mobileCards[0].setNextServicePackage(ServicePackageFactory.getServicePackage("话唠套餐"));
+        mobileCards[0].changeServicePackage();
+        mobileCards[1].setNextServicePackage(ServicePackageFactory.getServicePackage("超人套餐"));
+        mobileCards[1].changeServicePackage();
+        mobileCards[2].setNextServicePackage(ServicePackageFactory.getServicePackage("网虫套餐"));
+        mobileCards[2].changeServicePackage();
 
         cardMap.put(mobileCards[0].getCardNumber(), mobileCards[0]);
         cardMap.put(mobileCards[1].getCardNumber(), mobileCards[1]);
@@ -234,6 +235,7 @@ public class SystemServiceImpl implements SystemService {
                 mobileCardElement.addElement("username").setText(mobileCard.getUsername());
                 mobileCardElement.addElement("password").setText(mobileCard.getPassword());
                 mobileCardElement.addElement("servicePackage").setText(mobileCard.getServicePackage() == null ? "无" : mobileCard.getServicePackage().getSelectString());
+                mobileCardElement.addElement("nextServicePackage").setText(mobileCard.getNextServicePackage() == null ? "无" : mobileCard.getNextServicePackage().getSelectString());
                 mobileCardElement.addElement("consumAmount").setText(String.valueOf(mobileCard.getConsumAmount()));
                 mobileCardElement.addElement("money").setText(String.valueOf(mobileCard.getMoney()));
                 mobileCardElement.addElement("realTalkTime").setText(String.valueOf(mobileCard.getRealTalkTime()));
@@ -316,6 +318,7 @@ public class SystemServiceImpl implements SystemService {
                 String username = element.elementText("username");
                 String password = element.elementText("password");
                 ServicePackage servicePackage = ServicePackageFactory.getServicePackage(element.elementText("servicePackage"));
+                ServicePackage nextServicePackage = ServicePackageFactory.getServicePackage(element.elementText("nextServicePackage"));
                 Double consumAmount = Double.parseDouble(element.elementText("consumAmount"));
                 Double money = Double.parseDouble(element.elementText("money"));
                 Integer realTalkTime = Integer.parseInt(element.elementText("realTalkTime"));
@@ -324,7 +327,7 @@ public class SystemServiceImpl implements SystemService {
                 Long registerTime = DateUtil.StringToMills(element.elementText("registerTime"));
 
                 cardMap.put(cardNumber, new MobileCard(cardNumber, username, password,
-                        servicePackage, consumAmount, money, realTalkTime, realSMSCount, realFlow,
+                        servicePackage, nextServicePackage, consumAmount, money, realTalkTime, realSMSCount, realFlow,
                         registerTime));
             }
 
@@ -357,7 +360,7 @@ public class SystemServiceImpl implements SystemService {
         // 获取套餐资源量化map
         Map<String, Integer> map = card.getServicePackage() == null ? new HashMap<>() : card.getServicePackage().getAllowanceMap();
 
-        StringBuilder sb = new StringBuilder("*****本月账单查询*****\n");
+        StringBuilder sb = new StringBuilder();
         sb.append("您的卡号是").append(card.getCardNumber()).append('\n');
         sb.append("套餐内剩余:\n");
         int talkTime = map.getOrDefault("talkTime", 0);
@@ -376,5 +379,68 @@ public class SystemServiceImpl implements SystemService {
 
 
         return sb.toString();
+    }
+
+    /**
+     * @param card card
+     * @return 返回消费详单
+     */
+    @Override
+    public String getConsumptionInfoList(MobileCard card) {
+        // 获取消费详单列表
+        List<ConsumptionInfo> consumptionInfoList = consumptionInfoListMap.get(card.getCardNumber());
+        StringBuilder sb = new StringBuilder();
+
+        // 如果没有清单则返回null
+        if (consumptionInfoList == null) {
+            return sb.append("最近无消费\n").toString();
+        }
+
+
+        sb.append("用户").append(card.getCardNumber()).append('\n');
+        sb.append("您的消费详单：\n");
+
+        // 排序，输出为最近在上方
+        consumptionInfoList.sort((o1, o2) -> (int) (o1.getYyyyMMMills() - o2.getYyyyMMMills()));
+        for (ConsumptionInfo consumptionInfo : consumptionInfoList) {
+            sb.append("\t时间：").append(DateUtil.millsToYyyyMM(consumptionInfo.getYyyyMMMills())).append('\n');
+
+            sb.append("\t消费流量：");
+            // 显示单位控制
+            if (consumptionInfo.getConsumedFlow() > 1024) {
+                sb.append(new DecimalFormat("0.0").format(consumptionInfo.getConsumedFlow() / 1024.0)).append("GB\n");
+            } else {
+                sb.append(consumptionInfo.getConsumedFlow()).append("MB\n");
+            }
+            sb.append("\t已用短信：").append(consumptionInfo.getConsumedSMSCount()).append("条\n");
+            sb.append("\t已用通话时间：").append(consumptionInfo.getConsumedTalkTime()).append("分\n\n");
+        }
+
+        return sb.toString();
+    }
+
+    @Override
+    public boolean changeNextMenu(MobileCard card, ServicePackage servicePackage) {
+        card.setNextServicePackage(servicePackage);
+
+        // 因为card是引用对象，所以其实修改的就是内存中原始对象的值，所以直接保存就行
+        saveMobileCardToXMLFile();
+        return true;
+    }
+
+    @Override
+    public String getExpensesDescription() {
+        File file = new File("soso-mobile-service-center/套餐资费说明.txt");
+        if (file.exists()) {
+            try (FileInputStream fis = new FileInputStream(file);
+                 InputStreamReader isr = new InputStreamReader(fis);
+                 BufferedReader br = new BufferedReader(isr)) {
+                // 流拼接字符串
+                return br.lines().collect(Collectors.joining("\n"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return "无资费说明";
     }
 }
