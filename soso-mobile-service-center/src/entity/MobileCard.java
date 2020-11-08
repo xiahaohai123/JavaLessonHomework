@@ -96,17 +96,11 @@ public class MobileCard {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public ServicePackage getServicePackage() {
         return servicePackage;
@@ -116,59 +110,44 @@ public class MobileCard {
         this.servicePackage = nextServicePackage;
     }
 
-    public void setNextServicePackage(ServicePackage nextServicePackage) {
-        this.nextServicePackage = nextServicePackage;
-    }
-
     public ServicePackage getNextServicePackage() {
         return nextServicePackage;
+    }
+
+    public void setNextServicePackage(ServicePackage nextServicePackage) {
+        this.nextServicePackage = nextServicePackage;
     }
 
     public double getConsumAmount() {
         return consumAmount;
     }
 
-    public void setConsumAmount(double consumAmount) {
-        this.consumAmount = consumAmount;
-    }
 
     public double getMoney() {
         return money;
     }
 
-    public void setMoney(double money) {
-        this.money = money;
+    public void chargeMoney(double money) {
+        this.money += money;
     }
 
     public int getRealTalkTime() {
         return realTalkTime;
     }
 
-    public void setRealTalkTime(int realTalkTime) {
-        this.realTalkTime = realTalkTime;
-    }
 
     public int getRealSMSCount() {
         return realSMSCount;
     }
 
-    public void setRealSMSCount(int realSMSCount) {
-        this.realSMSCount = realSMSCount;
-    }
 
     public int getRealFlow() {
         return realFlow;
     }
 
-    public void setRealFlow(int realFlow) {
-        this.realFlow = realFlow;
-    }
 
     public long getRegisterTime() {
         return registerTime;
     }
 
-    public void setRegisterTime(long registerTime) {
-        this.registerTime = registerTime;
-    }
 }

@@ -73,4 +73,21 @@ public interface SystemService {
      * @return String 资费说明
      */
     String getExpensesDescription();
+
+    /**
+     * 退网
+     *
+     * @param card card
+     * @return 是否成功
+     */
+    boolean withdrawFromTheNet(MobileCard card);
+
+    /**
+     * 话费充值
+     *
+     * @param card card
+     * @param fee  充值费用
+     * @return boolean 成功与否
+     */
+    boolean chargeCard(MobileCard card, double fee);
 }

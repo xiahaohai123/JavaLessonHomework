@@ -443,4 +443,24 @@ public class SystemServiceImpl implements SystemService {
         }
         return "无资费说明";
     }
+
+    @Override
+    public boolean withdrawFromTheNet(MobileCard card) {
+        // 删除卡号
+        cardMap.remove(card.getCardNumber());
+        saveMobileCardToXMLFile();
+        // 删除消费详单
+        consumptionInfoListMap.remove(card.getCardNumber());
+        saveConsumptionToXMLFile();
+        return true;
+    }
+
+    @Override
+    public boolean chargeCard(MobileCard card, double fee) {
+        // 添加费用
+        card.chargeMoney(fee);
+        // 保存
+        saveConsumptionToXMLFile();
+        return true;
+    }
 }

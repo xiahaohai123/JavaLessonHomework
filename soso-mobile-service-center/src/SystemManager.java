@@ -158,13 +158,22 @@ public class SystemManager {
                         changeMenuModule(card);
                         break;
                     case 5:
-                        System.out.println("办理退网");
+                        // 办理退网
+                        System.out.println("退网...");
+                        if (systemService.withdrawFromTheNet(card)) {
+                            System.out.println("退网成功");
+                            // 退出登录
+                            loginFlag = false;
+                        } else {
+                            System.out.println("退网失败");
+                        }
                         break;
                     case 6:
                         System.out.println("使用嗖嗖");
                         break;
                     case 7:
-                        System.out.println("话费充值");
+                        System.out.println("*****话费充值*****");
+                        chargeMoneyModule(card);
                         break;
                     case 0:
                         loginFlag = false;
@@ -226,5 +235,17 @@ public class SystemManager {
                 "6.使用嗖嗖\n" +
                 "7.话费充值\n" +
                 "0.退出登录\n");
+    }
+
+    /**
+     * 话费充值模块
+     */
+    private void chargeMoneyModule(MobileCard card) {
+        System.out.print("请输入要充值的费用：");
+        if (systemService.chargeCard(card, scannerUtil.nextNumInSection(10, Integer.MAX_VALUE))) {
+            System.out.println("话费充值成功");
+        } else {
+            System.out.println("充值失败");
+        }
     }
 }
