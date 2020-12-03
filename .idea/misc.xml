@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/javaexam1128" />
+    <file type="web" url="file://$PROJECT_DIR$/javahw1125" />
+    <file type="web" url="file://$PROJECT_DIR$/javahw1126" />
+    <file type="web" url="file://$PROJECT_DIR$/javahw1127" />
+    <file type="web" url="file://$PROJECT_DIR$/javahw1130" />
+    <file type="web" url="file://$PROJECT_DIR$/javahw1201" />
+    <file type="web" url="file://$PROJECT_DIR$/supermarketmanager" />
+  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/WordReplacer/pom.xml" />
+        <option value="$PROJECT_DIR$/javahw1118/pom.xml" />
+        <option value="$PROJECT_DIR$/javaexam1120/pom.xml" />
+        <option value="$PROJECT_DIR$/javahw1125/pom.xml" />
+        <option value="$PROJECT_DIR$/javahw1126/pom.xml" />
+        <option value="$PROJECT_DIR$/javahw1127/pom.xml" />
+        <option value="$PROJECT_DIR$/javaexam1128/pom.xml" />
+        <option value="$PROJECT_DIR$/javahw1201/pom.xml" />
+        <option value="$PROJECT_DIR$/supermarketmanager/pom.xml" />
       </list>
     </option>
   </component>

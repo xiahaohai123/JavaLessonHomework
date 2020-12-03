@@ -12,6 +12,10 @@ import java.util.List;
  */
 public class CollectionCopyTest {
     public static void main(String[] args) {
+//        int a = 1000;
+//        Integer b = 1000;
+//        System.out.println(a == b);
+
         System.out.println("支持随机访问接口的ArrayList：");
         List<Integer> dest = new ArrayList<>();
         List<Integer> src = new ArrayList<>();
@@ -33,7 +37,6 @@ public class CollectionCopyTest {
 //        Collections.copy(dest, src);
         HWTools.copy(dest, src);
         dest.forEach(System.out::println);
-
 
 
     }

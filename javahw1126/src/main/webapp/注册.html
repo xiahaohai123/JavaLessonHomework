@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/zhumiddle.css"/>
+    <link rel="stylesheet" type="text/css" href="css/zhufooter.css"/>
+    <link rel="stylesheet" type="text/css" href="css/ce.css"/>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .head {
+            width: 1900px;
+            height: 80px;
+        }
+
+        #tt {
+            vertical-align: middle;
+        }
+
+        #show {
+            width: 150px;
+            list-style: none;
+            position: absolute;
+            top: 40px;
+            left: 125px;
+            background-color: wheat;
+            display: none;
+            vertical-align: middle;
+
+        }
+
+        #show li {
+            margin-top: 10px;
+        }
+
+        #show li:hover {
+            background: #A5AAD9;
+        }
+
+        #show a {
+            text-decoration: none;
+            color: black
+        }
+
+        #k1 {
+            width: 500px;
+            height: 40px;
+            margin-top: 10px;
+            margin-left: 200px;
+            background: url(img/搜索.png) no-repeat right;
+            border: 1px solid hotpink;
+            background-color: #F4F4F4;
+            border-radius: 10px;
+        }
+
+        #k2 {
+            width: 130px;
+            height: 40px;
+            background-color: #FB7299;
+            color: white;
+            border: none;
+        }
+
+        #s1 {
+            margin-left: 180px;
+        }
+
+        .head span {
+            padding-left: 20px;
+        }
+
+        .head a {
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+<div class="head">
+    <p>
+        <a href="index.html"><img id="tt" src="img/logo.png"/></a>
+        <span id="yindong">
+					<a href="#">主站</a>
+				</span>
+        <span>
+					<a href="#">番剧</a>
+				</span>
+        <span>
+					<a href="#">游戏中心</a>
+				</span>
+        <span>
+					<a href="#">直播</a>
+				</span>
+        <span>
+					<a href="#">会员购</a>
+				</span>
+        <span>
+					<a href="#">漫画</a>
+				</span>
+        <span>
+					<a href="#">赛事</a>
+				</span>
+        <span>
+					<img id="tt" src="img/APP.png"/>
+					<a href="#">下载APP</a>
+				</span>
+        <span>
+					<input id="k1" name="搜索框" type="text" placeholder="请输入"/ >
+				</span>
+
+        <span id="s1">
+					<img id="tt" src="img/登录头像.png"/><a href="登录.html">登录</a>
+				</span>
+        <span>
+					<a href="注册.html">注册</a>
+				</span>
+        <span>
+					<input id="k2" type="button" value="投稿"/>
+				</span>
+    </p>
+    <ul id="show">
+        <li>
+            <a href="#"><span>动画</span><span>2192</span></a>
+        </li>
+        <li>
+            <a href="#"><span>番剧</span><span>157</span></a>
+        </li>
+        <li>
+            <a href="#"><span>国创</span><span>316</span></a>
+        </li>
+        <li>
+            <a href="#"><span>音乐</span><span>4217</span></a>
+        </li>
+        <li>
+            <a href="#"><span>舞蹈</span><span>1189</span></a>
+        </li>
+        <li>
+            <a href="#"><span>游戏</span><span>25817</span></a>
+        </li>
+        <li>
+            <a href="#"><span>知识</span><span>10750</span></a>
+        </li>
+    </ul>
+</div>
+
+<div class="zhuce">
+    <img src="img1/ding.png"/>
+    <div class="zhucezi">
+        <img src="img1/xian1.jpg"/><span>注册</span><img src="img1/xina2.png"/>
+    </div>
+    <form class="b3" method="get" action="/registerPage">
+        <p><input id="ziduan" name="username" type="text" required="required" placeholder="昵称"></p>
+        <p><input id="ziduan9" name="password"
+                  type="password"
+                  placeholder="密码（6-16个字符组成区分大小写）" required="required" pattern="[\dA-Za-z]{6,16}"></p>
+        <p>
+            <select class="s1" name="city">
+                <option>中国大陆</option>
+                <option>美国</option>
+                <option>澳洲</option>
+                <option>英国</option>
+            </select>
+            <input id="duan1" name="yan" type="text" placeholder="填写常用手机号码"></p>
+        <p><input id="duan2" name="yan" type="text" placeholder="请输入短信验证码">
+            <input type="button" id="btn" value="点击获取他" onclick="sendemail()"/>
+        </p>
+        <input id="ziduan3" type="submit" value="注册"/>
+    </form>
+    <p id="bibi">
+        <span><input type="checkbox"/>我已同意<a href="#">《哔哩哔哩弹幕网用户使用协议》</a>和<a href="#">《哔哩哔哩隐私政策》</a></span>
+    </p>
+    <p>
+
+    </p>
+    <p id="bi">
+        <a href="登录.html">已有账号，直接登录</a>
+    </p>
+</div>
+
+<div class="zhufooter">
+    <div class="ul1">
+        <ul id="u1">
+            <p>bilibili</p>
+            <li>
+                <a href="#">关于我们</a>
+            </li>
+            <li>
+                <a href="#">联系我们</a>
+            </li>
+            <li>
+                <a href="#">用户协议</a>
+            </li>
+            <li>
+                <a href="#">加入我们</a>
+            </li>
+        </ul>
+        <ul id="u2">
+            <li>
+                <a href="#">友情链接</a>
+            </li>
+            <li>
+                <a href="#">隐私政策</a>
+            </li>
+            <li>
+                <a href="#">bilibili认证</a>
+            </li>
+            <li>
+                <a href="#">Investor Relations</a>
+            </li>
+        </ul>
+        <ul id="u3">
+            <p>传送门</p>
+            <li>
+                <a href="#">帮助中心</a>
+            </li>
+            <li>
+                <a href="#">高级弹幕</a>
+            </li>
+            <li>
+                <a href="#">活动专题页</a>
+            </li>
+            <li>
+                <a href="#">侵权申诉</a>
+            </li>
+        </ul>
+        <ul id="u4">
+            <li>
+                <a href="#">活动中心</a>
+            </li>
+            <li>
+                <a href="#">用户反馈论坛</a>
+            </li>
+            <li>
+                <a href="#">壁纸站</a>
+            </li>
+            <li>
+                <a href="#">广告合作</a>
+            </li>
+        </ul>
+        <ul id="u5">
+            <li>
+                <a href="#">名人堂</a>
+            </li>
+            <li>
+                <a href="#">MCN管理中心</a>
+            </li>
+        </ul>
+        <div class="ul2">
+            <ul>
+                <li id="li1"><img src="img1/xiazai.png"><span id="sp1">下载内容</span></li>
+                <li id="li2"><img src="img1/weibo1.png"><span id="sp2">新浪微博</span></li>
+                <li id="li3"><img src="img1/weixin.png"><span id="sp3">官方微信</span></li>
+            </ul>
+            <div>
+                <img id="im1" src="img1/101.png">
+                <img id="im2" src="img1/102.png">
+                <img id="im3" src="img1/103.png">
+            </div>
+        </div>
+    </div>
+
+    <div class="di">
+        <ul>
+            <li><img src="img1/304.png"></li>
+            <li><img src="img1/304.png"></li>
+            <li><img src="img1/304.png"></li>
+            <li><img src="img1/304.png"></li>
+        </ul>
+        <p>
+        <p id="text1">
+            <span>营业执照</span> <span>信息网络传播视听节目许可证：0910417</span>
+            <span>网络文化经营许可证 沪网文【2019】3804-274号</span> <span>广播电视节目制作经营许可证：（沪）字第01248号</span>
+            <span>增值电信业务经营许可证 沪B2-20100043</span> <span>互联网ICP备案：沪ICP备13002172号-3</span>
+        </p>
+        <p id="text2">
+            <span>出版物经营许可证 沪批字第U6699 号</span>
+            <span>互联网药品信息服务资格证 沪-非经营性-2016-0143</span>
+            <span> 营业性演出许可证 沪市文演（经）00-2253</span>
+        </p>
+        <p id="text3">
+            <span>违法不良信息举报邮箱：help@bilibili.com |违法不良信息举报电话：4000233233转3</span>
+        </p>
+        <p id="text4">
+            <span>违法不良信息举报邮箱：help@bilibili.com |违法不良信息举报电话：上海互联网举报中心 | 12318全国文化市场举报网站 | 沪公网安备31011002002436号 | 儿童色情信息举报专区 | 扫黄打非举报</span>
+        </p>
+        <p id="text5">
+            <span>网上有害信息举报专区：中国互联网违法和不良信息举报中心</span>
+        </p>
+        <p id="text6">
+					<span>
+						亲爱的市民朋友，上海警方反诈劝阻电话“962110”系专门针对避免您财产被骗受损而设，请您一旦收到来电，立即接听。	
+					</span>
+        </p>
+        <p id="text7">
+						<span>
+						公司名称：上海宽娱数码科技有限公司|公司地址：上海市杨浦区政立路485号|电话：021-25099888
+						</span>
+        </p>
+        </p>
+    </div>
+
+</div>
+
+</body>
+
+</html>
+<script src="js/jquery-3.5.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    //短信验证
+    var countdown = 60;
+
+    function sendemail() {
+        var wa = $("#btn");
+        settime(wa);
+
+    }
+
+    function settime(wa) {
+        if (countdown == 0) {
+            wa.attr('disabled', false);
+            wa.val("获取验证码");
+            countdown = 60;
+            return;
+        } else {
+            wa.attr('disabled', true);
+            wa.val("重新发送(" + countdown + ")");
+            countdown--;
+        }
+        setTimeout(function () {
+            settime(wa)
+        }, 1000)
+    }
+
+    $(function () {
+        $("#li1").hover(
+            function () {
+                $("#im1").show();
+            },
+            function () {
+                $("#im1").hide();
+            }
+        )
+    });
+    $(function () {
+        $("#li2").hover(
+            function () {
+                $("#im2").show();
+            },
+            function () {
+                $("#im2").hide();
+            }
+        )
+    });
+    $(function () {
+        $("#li3").hover(
+            function () {
+                $("#im3").show();
+            },
+            function () {
+                $("#im3").hide();
+            }
+        )
+    });
+
+    $(function () {
+        $(".btn1").click(function () {
+            $("#ziduan3").addClass("ziduan4");
+        })
+    })
+
+
+    $(function () {
+        $('#yindong').mouseenter(function () {
+            $("#show").show();
+
+        });
+        $('#show').mouseleave(function () {
+            $("#show").hide();
+        });
+    });
+
+
+</script>

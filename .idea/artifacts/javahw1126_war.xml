@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="javahw1126:war">
+    <output-path>$PROJECT_DIR$/javahw1126/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>javahw1126</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="javahw1126.war">
+      <element id="artifact" artifact-name="javahw1126:war exploded" />
+    </root>
+  </artifact>
+</component>
