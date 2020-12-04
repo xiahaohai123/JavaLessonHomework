@@ -15,11 +15,11 @@ $(function () {
             if (data == 1) {
                 $(location).attr('href', "welcome.jsp");
                 // $(location).attr('href', "http://www.baidu.com");
-                alert("登陆成功！");
+                alert("登陆成功！login success");
             } else if (data == 0) {
-                alert("登录失败！")
+                alert("登录失败！login failed")
             } else {
-                alert("出错了！")
+                alert("出错了！something wrong")
             }
         })
     })

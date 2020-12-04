@@ -25,7 +25,9 @@ public class UserInfo {
     }
 
     public void setUserId(String userId) {
-        this.userId = userId;
+        if (!"".equals(userId)) {
+            this.userId = userId;
+        }
     }
 
     public String getUsername() {
@@ -33,7 +35,9 @@ public class UserInfo {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        if (!"".equals(username)) {
+            this.username = username;
+        }
     }
 
     public String getPassword() {
@@ -41,7 +45,9 @@ public class UserInfo {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        if (!"".equals(password)) {
+            this.password = password;
+        }
     }
 
     public Boolean getSex() {
@@ -50,6 +56,14 @@ public class UserInfo {
 
     public void setSex(Boolean sex) {
         this.sex = sex;
+    }
+
+    public void setSex(String sex) {
+        if ("男".equals(sex)) {
+            this.sex = true;
+        } else if ("女".equals(sex)) {
+            this.sex = false;
+        }
     }
 
     public Date getBornDate() {
@@ -65,7 +79,9 @@ public class UserInfo {
     }
 
     public void setUserTel(String userTel) {
-        this.userTel = userTel;
+        if (!"".equals(userTel)) {
+            this.userTel = userTel;
+        }
     }
 
     public String getUserAddress() {
@@ -73,7 +89,9 @@ public class UserInfo {
     }
 
     public void setUserAddress(String userAddress) {
-        this.userAddress = userAddress;
+        if (!"".equals(userAddress)) {
+            this.userAddress = userAddress;
+        }
     }
 
     public String getTypeId() {
@@ -81,6 +99,8 @@ public class UserInfo {
     }
 
     public void setTypeId(String typeId) {
-        this.typeId = typeId;
+        if (!"".equals(typeId)) {
+            this.typeId = typeId;
+        }
     }
 }

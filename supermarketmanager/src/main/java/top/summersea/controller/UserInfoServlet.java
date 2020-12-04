@@ -1,9 +1,12 @@
 package top.summersea.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import top.summersea.entity.UserInfo;
 import top.summersea.service.UserInfoService;
 import top.summersea.service.impl.UserInfoServiceImpl;
+import top.summersea.util.JSONUtil;
+import top.summersea.util.TimeUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +17,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "UserInfoServlet", urlPatterns = "/userInfo/*")
 public class UserInfoServlet extends HttpServlet {
@@ -105,5 +110,109 @@ public class UserInfoServlet extends HttpServlet {
 
         JSONArray jsonArray = new JSONArray(userInfoList);
         response.getWriter().print(jsonArray.toJSONString());
+    }
+
+    private void isUserIdExistent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("application/json;charset=utf-8");
+        String userId = request.getParameter("userId");
+        JSONObject jsonObject = JSONUtil.createSuccessJSONObject();
+        jsonObject.put("isExistent", userInfoService.isUserIdExist(userId) ? 1 : 0);
+
+        response.getWriter().print(jsonObject.toJSONString());
+    }
+
+    private void registerUserInfo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("application/json;charset=utf-8");
+        String userId = request.getParameter("userId");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String sex = request.getParameter("sex");
+        String birthday = request.getParameter("birthday");
+        String userPhone = request.getParameter("userPhone");
+        String userAddress = request.getParameter("userAddress");
+        String userType = request.getParameter("userType");
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUserId(userId);
+        userInfo.setUsername(username);
+        userInfo.setPassword(password);
+        userInfo.setSex(sex);
+        userInfo.setUserTel(userPhone);
+        userInfo.setUserAddress(userAddress);
+        try {
+            userInfo.setBornDate(TimeUtil.dateStringToDate(birthday));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        boolean b = userInfoService.registerUserInfo(userInfo, userType);
+
+        JSONObject jsonObject = JSONUtil.createSuccessJSONObject();
+        jsonObject.put("insertState", b);
+        response.getWriter().print(jsonObject.toJSONString());
+
+    }
+
+    /**
+     * 用户退出
+     * 干掉session
+     *
+     * @param request  req
+     * @param response resp
+     */
+    private void exist(HttpServletRequest request, HttpServletResponse response) {
+        request.getSession().invalidate();
+    }
+
+    /**
+     * 根据userId获取userInfo
+     *
+     * @param request
+     * @param response
+     */
+    private void getUserInfoById(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        String userId = request.getParameter("userId");
+        Map<String, Object> resMap = userInfoService.getUserInfoByUserId(userId);
+        request.setAttribute("data", resMap);
+
+        request.getRequestDispatcher("/userView.jsp").forward(request, response);
+    }
+
+    private void updateUserInfo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("application/json;charset=utf-8");
+        String userId = request.getParameter("userId");
+        String username = request.getParameter("username");
+        String sex = request.getParameter("sex");
+        String bornDate = request.getParameter("bornDate");
+        String userTel = request.getParameter("userTel");
+        String userAddress = request.getParameter("userAddress");
+        String userType = request.getParameter("userType");
+
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUserId(userId);
+        userInfo.setUsername(username);
+        userInfo.setSex(sex);
+        userInfo.setUserTel(userTel);
+        userInfo.setUserAddress(userAddress);
+        try {
+            userInfo.setBornDate(TimeUtil.dateStringToDate(bornDate));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        boolean b = userInfoService.updateUserInfo(userInfo, userType);
+
+
+        JSONObject jsonObject = JSONUtil.createSuccessJSONObject();
+        jsonObject.put("updateState", b);
+        response.getWriter().print(jsonObject.toJSONString());
+    }
+
+    private void deleteUserInfoById(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("application/json;charset=utf-8");
+        String userId = request.getParameter("userId");
+
+        boolean b = userInfoService.deleteUserInfoByUserId(userId);
+        JSONObject jsonObject = JSONUtil.createSuccessJSONObject();
+        jsonObject.put("deleteState", b);
+        response.getWriter().print(jsonObject.toJSONString());
     }
 }

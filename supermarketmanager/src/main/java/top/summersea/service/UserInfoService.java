@@ -3,6 +3,7 @@ package top.summersea.service;
 import top.summersea.entity.UserInfo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserInfoService {
     /**
@@ -22,4 +23,14 @@ public interface UserInfoService {
      * @return
      */
     List<Object> getUserInfoList(String... username);
+
+    boolean isUserIdExist(String userId);
+
+    boolean registerUserInfo(UserInfo userInfo, String userTypeName);
+
+    Map<String, Object> getUserInfoByUserId(String userId);
+
+    boolean updateUserInfo(UserInfo userInfo, String userTypeName);
+
+    boolean deleteUserInfoByUserId(String userId);
 }

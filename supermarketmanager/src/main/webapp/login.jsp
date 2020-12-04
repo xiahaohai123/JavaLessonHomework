@@ -1,11 +1,19 @@
-<!DOCTYPE html>
+﻿<%--
+  Created by IntelliJ IDEA.
+  User: xiaha
+  Date: 2020/12/3
+  Time: 20:49
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" isELIgnored="false" %>
 <html>
-<head >
-    <meta charset="UTF-8">
+<head lang="en">
+    <%--    <meta charset="UTF-8">--%>
     <title>系统登录 - 超市账单管理系统</title>
-    <link rel="stylesheet" href="/css/style.css"/>
-    <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
-    <script src="/js/login.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/webjars/jquery/3.5.1/jquery.min.js"
+            charset="UTF-8"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/login.js" charset="UTF-8"></script>
 </head>
 <body class="login_bg">
 <section class="loginBox">

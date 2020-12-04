@@ -13,6 +13,8 @@
     <title>超市账单管理系统</title>
     <link rel="stylesheet" href="css/public.css"/>
     <link rel="stylesheet" href="css/style.css"/>
+    <script src="${pageContext.request.contextPath}/webjars/jquery/3.5.1/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/exitSys.js"></script>
 </head>
 <body>
 <!--头部-->
@@ -23,7 +25,7 @@
         <p><span>下午好！</span><span
                 style="color: #fff21b">${sessionScope.username}</span> ,
             欢迎你！</p>
-        <a href="login.html">退出</a>
+        <a href="/login.jsp" id="exitSysOnTopRight">退出</a>
     </div>
 </header>
 <!--时间-->
@@ -45,7 +47,7 @@
                 <li><a href="${pageContext.request.contextPath}/productList.html">商品管理</a></li>
                 <li><a href="${pageContext.request.contextPath}/userList.jsp">用户管理</a></li>
                 <li><a href="${pageContext.request.contextPath}/password.jsp">密码修改</a></li>
-                <li><a href="${pageContext.request.contextPath}/login.html">退出系统</a></li>
+                <li><a href="${pageContext.request.contextPath}/login.jsp" id="exitSys">退出系统</a></li>
             </ul>
         </nav>
     </div>

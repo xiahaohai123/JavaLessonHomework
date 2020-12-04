@@ -157,6 +157,18 @@ public class JDBCUtil {
         return t;
     }
 
+    public Integer executeQueryForCount(String sql, Object... args) {
+        ResultSet resultSet = executeQuery(sql, args);
+        try {
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     /**
      * 组合查询
      * <p>
@@ -204,6 +216,35 @@ public class JDBCUtil {
         }
 
         return resList;
+    }
+
+    public Map<String, Object> executeAssociationQueryForMap(String sql, Object... args) {
+        ResultSet resultSet = executeQuery(sql, args);
+        Map<String, Object> valueMap = new HashMap<>();
+        try {
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int len = metaData.getColumnCount();
+            // 获取驼峰映射表
+            Map<String, String> metaColumnNameToSmallCamelMap = getSmallCamelListByMetaData(metaData);
+
+            if (resultSet.next()) {
+                for (int i = 1; i <= len; i++) {
+                    String columnName = metaData.getColumnName(i);
+                    valueMap.put(metaColumnNameToSmallCamelMap.get(columnName), resultSet.getObject(columnName));
+                }
+                return valueMap;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return valueMap;
     }
 
     private Map<String, String> getSmallCamelListByMetaData(ResultSetMetaData metaData) throws SQLException {

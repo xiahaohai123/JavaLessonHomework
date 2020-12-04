@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="css/public.css"/>
     <link rel="stylesheet" href="css/style.css"/>
     <script src="${pageContext.request.contextPath}/webjars/jquery/3.5.1/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/exitSys.js"></script>
     <script type="text/javascript">
         $(function () {
             getUserInfoData(null)
@@ -27,6 +28,7 @@
                 var tbody = $("#userInfoTable tbody");
                 tbody.empty();
                 $.each(json, function (index, mapObj) {
+                    var userId = mapObj.userId;
                     tbody.append('<tr>' +
                         '<td>' + mapObj.userId + '</td>' +
                         '<td>' + mapObj.username + '</td>' +
@@ -35,9 +37,15 @@
                         '<td>' + mapObj.userTel + '</td>' +
                         '<td>' + mapObj.typeName + '</td>' +
                         '<td>' +
-                        '<a href="userView.html"><img src="/img/read.png" alt="查看" title="查看"/></a>' +
-                        '<a href="userUpdate.html"><img src="/img/xiugai.png" alt="修改" title="修改"/></a>' +
-                        '<a href="#" class="removeUser"><img src="/img/schu.png" alt="删除" title="删除"/></a>' +
+                        '<a href="/userInfo/getUserInfoById?userId=' + mapObj.userId + '"><img src="/img/read.png" alt="查看" title="查看"/></a>' +
+                        '<a href="/userUpdate.jsp?userId=' + mapObj.userId +
+                        '&username=' + mapObj.username +
+                        '&sex=' + mapObj.sex +
+                        '&bornDate=' + mapObj.bornDate +
+                        '&userTel=' + mapObj.userTel +
+                        '&userAddress=' + mapObj.userAddress +
+                        '&typeName=' + mapObj.typeName + '"><img src="/img/xiugai.png" alt="修改" title="修改"/></a>' +
+                        '<a href="javascript:void(0)" class="removeUser" onclick="funDel(this)" userId="' + mapObj.userId + '"><img src="/img/schu.png" alt="删除" title="删除"/></a>' +
                         '</td>' +
                         '</tr>')
                 })
@@ -49,7 +57,29 @@
 
                 getUserInfoData($("#searchUsername").val());
             })
-        })
+        });
+
+        function funDel(body) {
+            if (window.confirm("****您确定要删除吗?")) {
+                delUser($(body).attr("userId"));
+                // document.location.href = "/userInfo/deleteUserInfoById?userId=" + ();
+            }
+        }
+
+        function delUser(userId) {
+            $.get("/userInfo/deleteUserInfoById", {
+                "userId": userId
+            }, function (data) {
+                if (data.deleteState === true) {
+                    alert("删除成功！");
+                    window.location.reload();
+                } else if (data.deleteState === true) {
+                    alert("删除失败！")
+                } else {
+                    alert("未知错误！")
+                }
+            })
+        }
     </script>
 </head>
 <body>
@@ -58,7 +88,7 @@
     <h1>超市账单管理系统</h1>
     <div class="publicHeaderR">
         <p><span>下午好！</span><span style="color: #fff21b">${sessionScope.username}</span> , 欢迎你！</p>
-        <a href="login.html">退出</a>
+        <a href="${pageContext.request.contextPath}/login.jsp" id="exitSysOnTopRight">退出</a>
     </div>
 </header>
 <!--时间-->
@@ -78,7 +108,7 @@
                 <li id="active"><a href="${pageContext.request.contextPath}/userList.jsp">用户管理</a></li>
 
                 <li><a href="${pageContext.request.contextPath}/password.jsp">密码修改</a></li>
-                <li><a href="${pageContext.request.contextPath}/login.html">退出系统</a></li>
+                <li><a href="${pageContext.request.contextPath}/login.jsp" id="exitSys">退出系统</a></li>
             </ul>
         </nav>
     </div>
@@ -126,12 +156,12 @@
 </div>
 
 <footer class="footer">
-    版权归北大青鸟
+    summersea
 </footer>
 
-<script src="js/jquery.js"></script>
-<script src="js/js.js"></script>
-<script src="js/time.js"></script>
+<%--<script src="js/jquery.js"></script>--%>
+<script src="${pageContext.request.contextPath}/js/js.js"></script>
+<script src="${pageContext.request.contextPath}/js/time.js"></script>
 
 </body>
 </html>

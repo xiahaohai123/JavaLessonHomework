@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
     <script src="${pageContext.request.contextPath}/webjars/jquery/3.5.1/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/register.js"></script>
+    <script src="${pageContext.request.contextPath}/js/exitSys.js"></script>
 </head>
 <body>
 <!--头部-->
@@ -23,7 +24,7 @@
 
     <div class="publicHeaderR">
         <p><span>下午好！</span><span style="color: #fff21b">${sessionScope.username}</span> , 欢迎你！</p>
-        <a href="login.html">退出</a>
+        <a href="${pageContext.request.contextPath}/login.jsp" id="exitSysOnTopRight">退出</a>
     </div>
 </header>
 <!--时间-->
@@ -42,7 +43,7 @@
                 <li><a href="productList.html">商品管理</a></li>
                 <li id="active"><a href="${pageContext.request.contextPath}/userList.jsp">用户管理</a></li>
                 <li><a href="${pageContext.request.contextPath}/password.jsp">密码修改</a></li>
-                <li><a href="${pageContext.request.contextPath}/login.html">退出系统</a></li>
+                <li><a href="${pageContext.request.contextPath}/login.jsp" id="exitSys">退出系统</a></li>
             </ul>
         </nav>
     </div>
@@ -57,42 +58,43 @@
                 <div class="">
                     <label for="userId">用户编码：</label>
                     <input type="text" name="userId" id="userId"/>
-                    <span>*请输入用户编码，且不能重复</span>
+                    <span id="userIdDiv">*请输入用户编码，且不能重复</span>
                 </div>
                 <div>
-                    <label for="userName">用户名称：</label>
-                    <input type="text" name="userName" id="userName"/>
-                    <span>*请输入用户名称</span>
+                    <label for="registerUsername">用户名称：</label>
+                    <input type="text" id="registerUsername" name="registerUsername"/>
+                    <span id="registerUsernameDiv">*请输入用户名称</span>
+
                 </div>
                 <div>
-                    <label for="userpassword">用户密码：</label>
-                    <input type="text" name="userpassword" id="userpassword"/>
-                    <span>*密码长度必须大于6位小于20位</span>
+                    <label for="userPassword">用户密码：</label>
+                    <input type="text" name="userPassword" id="userPassword"/>
+                    <span id="userPasswordDiv">*密码长度必须大于6位小于20位</span>
 
                 </div>
                 <div>
                     <label for="userRemi">确认密码：</label>
                     <input type="text" name="userRemi" id="userRemi"/>
-                    <span>*请输入确认密码</span>
+                    <span id="userRemiDiv">*请输入确认密码</span>
                 </div>
                 <div>
                     <label>用户性别：</label>
 
 
-                    <input name="sex" type="radio" checked value="1">男
-                    <input name="sex" type="radio" value="2">女
+                    <input name="sex" type="radio" checked value="男">男
+                    <input name="sex" type="radio" value="女">女
                     <span></span>
                 </div>
                 <div>
-                    <label for="data">出生日期：</label>
-                    <INPUT class="sang_Calender" class=test id="data" type=text name="houseDate">
+                    <label for="birthday">出生日期：</label>
+                    <INPUT class="sang_Calender" class=test id="birthday" type=text name="houseDate">
                     <script type="text/javascript" src="${pageContext.request.contextPath}/js/datetime.js"></script>
-                    <span>*</span>
+                    <span id="birthdayDiv">*请输入出生日期</span>
                 </div>
                 <div>
-                    <label for="userphone">用户电话：</label>
-                    <input type="text" name="userphone" id="userphone"/>
-                    <span>*</span>
+                    <label for="userPhone">用户电话：</label>
+                    <input type="text" name="userPhone" id="userPhone"/>
+                    <span id="userPhoneDiv">*请输入用户电话</span>
                 </div>
                 <div>
                     <label for="userAddress">用户地址：</label>
@@ -100,15 +102,15 @@
                 </div>
                 <div>
                     <label>用户类别：</label>
-                    <input type="radio" name="userlei"/>管理员
-                    <input type="radio" name="userlei"/>经理
-                    <input type="radio" checked name="userlei"/>普通用户
+                    <input type="radio" name="userType" value="主管"/>主管
+                    <input type="radio" name="userType" value="经理"/>经理
+                    <input type="radio" checked name="userType" value="职员"/>职员
 
                 </div>
                 <div class="providerAddBtn">
                     <!--<a href="#">保存</a>-->
                     <!--<a href="/userList.jsp">返回</a>-->
-                    <input type="button" value="保存" onclick="history.back(-1)"/>
+                    <input type="button" value="保存" id="registerButton"/>
                     <input type="button" value="返回" onclick="history.back(-1)"/>
                 </div>
             </form>
@@ -118,7 +120,7 @@
 <footer class="footer">
     summersea
 </footer>
-<script src="js/time.js"></script>
+<script src="${pageContext.request.contextPath}/js/time.js"></script>
 
 </body>
 </html>

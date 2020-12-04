@@ -31,27 +31,39 @@ public class TotalFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         request.setCharacterEncoding(encoding);
-        response.setContentType("text/html;charset=utf-8");
+
         HttpServletRequest httpServletRequest = ((HttpServletRequest) request);
-//        chain.doFilter(request, response);
-//
-        // 主动略过登录页面
+
+//        System.out.println("RequestURI:" + httpServletRequest.getRequestURI());
+//        System.out.println("RequestURL:" + httpServletRequest.getRequestURL());
+//        System.out.println("PathInfo:" + httpServletRequest.getPathInfo());
+//        System.out.println("ServletPath:" + httpServletRequest.getServletPath());
+//        System.out.println("ContextPath:" + httpServletRequest.getContextPath());
+        System.out.println();
+
+        String requestURI = httpServletRequest.getRequestURI();
         // 样式资源放开
         // js资源放开
-        String servletPath = httpServletRequest.getServletPath();
-        if (servletPath.contains(".ico") || servletPath.contains(".css") || servletPath.contains(".js") || servletPath.contains(".jpg") || servletPath.contains(".png")) {
+        if (isIgnore(requestURI)) {
             chain.doFilter(request, response);
-        } else if ("/login.html".equals(servletPath) || "//login.html".equals(servletPath) || "login.html".equals(servletPath) || "/login.jsp".equals(servletPath)) {
-            chain.doFilter(request, response);
-        } else if ("/userInfo".equals(servletPath) && "/login".equals(httpServletRequest.getPathInfo())) {
-            // 放开登录
+            return;
+        }
+
+//        chain.doFilter(request, response);
+//        return;
+//
+        // 设置浏览器解析字符编码
+        // 不能在上方代码设置，css，js，图片等有自己的ContentType
+        //
+        response.setContentType("text/html;charset=utf-8");
+        // 主动略过不需要Session的页面
+        if (isVisitIgnoreSession(requestURI)) {
             chain.doFilter(request, response);
         } else {
-
             // session过滤
             HttpSession session = httpServletRequest.getSession();
             if (session == null || session.getAttribute("userId") == null) {
-                ((HttpServletResponse) response).sendRedirect("/login.html");
+                ((HttpServletResponse) response).sendRedirect("/login.jsp");
             } else {
 //                System.out.println(session);
 //                System.out.println(session.getAttribute("userId"));
@@ -63,5 +75,17 @@ public class TotalFilter implements Filter {
     @Override
     public void destroy() {
 
+    }
+
+    private boolean isIgnore(String uri) {
+        return uri.indexOf("/webjars") == 0
+                || uri.indexOf("/css") == 0
+                || uri.indexOf("/js") == 0
+                || uri.indexOf("/img") == 0
+                || uri.indexOf("/favicon.ico") == 0;
+    }
+
+    private boolean isVisitIgnoreSession(String uri) {
+        return uri.equals("/") || uri.equals("/userInfo/login") || uri.equals("/login.jsp") || uri.equals("/login.html");
     }
 }

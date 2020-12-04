@@ -5,6 +5,7 @@ import top.summersea.entity.UserInfo;
 import top.summersea.util.JDBCUtil;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @PackageName: dao
@@ -55,6 +56,7 @@ public class UserInfoDaoImpl implements UserInfoDao {
             sql = "SELECT user_id, " +
                     "username, " +
                     "sex, " +
+                    "born_date, " +
                     "TIMESTAMPDIFF(YEAR,born_date,CURDATE()) AS age, " +
                     "user_tel, " +
                     "user_address, " +
@@ -65,6 +67,7 @@ public class UserInfoDaoImpl implements UserInfoDao {
             sql = "SELECT user_id, " +
                     "username, " +
                     "sex, " +
+                    "born_date, " +
                     "TIMESTAMPDIFF(YEAR,born_date,CURDATE()) AS age, " +
                     "user_tel, " +
                     "user_address, " +
@@ -74,5 +77,58 @@ public class UserInfoDaoImpl implements UserInfoDao {
             // 只取第一个防止出错
             return jdbcUtil.executeAssociationQueryForList(sql, username[0]);
         }
+    }
+
+    @Override
+    public Integer selectCountByUserId(String userId) {
+        String sql = "SELECT COUNT(1) FROM userinfo WHERE user_id = ?";
+        return jdbcUtil.executeQueryForCount(sql, userId);
+    }
+
+    @Override
+    public Integer insertUserInfo(UserInfo userInfo, String typeName) {
+        String sql = "INSERT INTO userinfo VALUES" +
+                "(?,?,?,?,?,?,?," +
+                "(SELECT ut.type_id FROM usertype ut WHERE ut.type_name=?))";
+        Object[] objects = {userInfo.getUserId(), userInfo.getUsername(), userInfo.getPassword(),
+                userInfo.getSex(), userInfo.getBornDate(), userInfo.getUserTel(), userInfo.getUserAddress(),
+                typeName};
+        return jdbcUtil.executeUpdate(sql, objects);
+    }
+
+    @Override
+    public Map<String, Object> selectUserInfoByUserId(String userId) {
+        String sql = "SELECT user_id, " +
+                "username, " +
+                "sex, " +
+                "born_date, " +
+                "user_tel, " +
+                "user_address, " +
+                "type_name " +
+                "FROM userinfo ui LEFT JOIN usertype ut ON ui.type_id = ut.type_id " +
+                "WHERE user_id = ?";
+        return jdbcUtil.executeAssociationQueryForMap(sql, userId);
+    }
+
+    @Override
+    public Integer updateUserInfo(UserInfo userInfo, String typeName) {
+        String sql = "UPDATE userinfo SET username = ?, " +
+                "sex = ?, " +
+                "born_date = ?," +
+                "user_tel = ?, " +
+                "user_address = ?," +
+                "type_id = " +
+                "(SELECT ut.type_id FROM usertype ut WHERE type_name = ?) " +
+                "WHERE user_id = ?;";
+        Object[] objects = {userInfo.getUsername(), userInfo.getSex(), userInfo.getBornDate(),
+                userInfo.getUserTel(), userInfo.getUserAddress(), typeName, userInfo.getUserId()};
+        return jdbcUtil.executeUpdate(sql, objects);
+    }
+
+    @Override
+    public Integer deleteUserInfoByUserId(String userId) {
+        String sql = "DELETE FROM userinfo WHERE user_id = ?";
+
+        return jdbcUtil.executeUpdate(sql, userId);
     }
 }
