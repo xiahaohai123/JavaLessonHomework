@@ -39,4 +39,20 @@ public class SupplierDaoImpl implements SupplierDao {
 
         return suppliers;
     }
+
+
+    @Override
+    public Integer selectCountBySupplierId(String supplierId) {
+        String sql = "SELECT COUNT(1) FROM supplier WHERE supplier_id = ?";
+        return jdbcUtil.executeQueryForCount(sql, supplierId);
+    }
+
+    @Override
+    public Integer insertSupplier(Supplier supplier) {
+        String sql = "INSERT INTO supplier VALUES(?,?,?,?,?,?,?,?);";
+        Object[] objects = {supplier.getSupplierId(), supplier.getSupplierName(),
+                supplier.getLinkMan(), supplier.getLinkTel(), supplier.getLinkAddress(),
+                supplier.getFax(), supplier.getCreateTime(), supplier.getDescribe()};
+        return jdbcUtil.executeUpdate(sql, objects);
+    }
 }

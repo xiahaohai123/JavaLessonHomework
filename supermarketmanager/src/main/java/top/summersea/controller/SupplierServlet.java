@@ -63,4 +63,41 @@ public class SupplierServlet extends HttpServlet {
 
         response.getWriter().print(jsonObject);
     }
+
+    private void isSupplierIdExistent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("application/json;charset=utf-8");
+        String supplierId = request.getParameter("supplierId");
+        boolean supplierExistent = supplierService.isSupplierExistent(supplierId);
+
+        JSONObject successJSONObject = JSONUtil.createSuccessJSONObject();
+        successJSONObject.put("isExistent", supplierExistent);
+        response.getWriter().print(successJSONObject.toJSONString());
+    }
+
+    private void registerSupplier(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        String supplierId = request.getParameter("supplierId");
+        String supplierName = request.getParameter("supplierName");
+        String linkMan = request.getParameter("linkMan");
+        String linkTel = request.getParameter("linkTel");
+        String linkAddress = request.getParameter("linkAddress");
+        String fax = request.getParameter("fax");
+        String describe = request.getParameter("describe");
+
+        Supplier supplier = new Supplier();
+        supplier.setSupplierId(supplierId);
+        supplier.setSupplierName(supplierName);
+        supplier.setLinkMan(linkMan);
+        supplier.setLinkTel(linkTel);
+        supplier.setLinkAddress(linkAddress);
+        supplier.setFax(fax);
+        supplier.setDescribe(describe);
+
+        boolean b = supplierService.regiserSupplier(supplier);
+
+        response.setContentType("application/json;charset=utf-8");
+        JSONObject successJSONObject = JSONUtil.createSuccessJSONObject();
+        successJSONObject.put("insertState", b);
+        response.getWriter().print(successJSONObject.toJSONString());
+    }
 }

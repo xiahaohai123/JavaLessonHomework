@@ -14,6 +14,7 @@ import java.util.Date;
  */
 public class TimeUtil {
     public static Date dateStringToDate(String dateString) throws ParseException {
+        if (dateString == null || "".equals(dateString)) return null;
         if (!dateString.contains(":")) {
             dateString = dateString + " 00:00:00";
         }
@@ -22,11 +23,13 @@ public class TimeUtil {
     }
 
     public static String dateToYyyyMMdd(Date date) {
+        if (date == null) return null;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日");
         return simpleDateFormat.format(date);
     }
 
     public static String dateToDateString(Date date) {
+        if (date == null) return null;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return simpleDateFormat.format(date);
     }

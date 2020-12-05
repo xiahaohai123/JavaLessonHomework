@@ -104,7 +104,7 @@
             <span>供应商名称：</span>
             <input type="text" placeholder="请输入供应商的名称" id="querySupplierName"/>
             <input type="button" value="查询" id="querySupplierListButton"/>
-            <a href="${pageContext.request.contextPath}/providerAdd.html">添加供应商</a>
+            <a href="${pageContext.request.contextPath}/providerAdd.jsp">添加供应商</a>
         </div>
         <!--供应商操作表格-->
         <table class="providerTable" cellpadding="0" cellspacing="0" id="supplierListTable">

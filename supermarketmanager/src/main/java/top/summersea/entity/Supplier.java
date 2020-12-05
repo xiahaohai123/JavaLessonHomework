@@ -21,13 +21,61 @@ public class Supplier {
     private Date createTime;
     private String createTimeInString;
 
-
     public String getSupplierId() {
         return supplierId;
     }
 
     public void setSupplierId(String supplierId) {
-        this.supplierId = supplierId;
+
+        this.supplierId = "".equals(supplierId) ? null : supplierId;
+    }
+
+    public String getSupplierName() {
+        return supplierName;
+    }
+
+    public void setSupplierName(String supplierName) {
+        this.supplierName = "".equals(supplierName) ? null : supplierName;
+    }
+
+    public String getLinkMan() {
+        return linkMan;
+    }
+
+    public void setLinkMan(String linkMan) {
+        this.linkMan = "".equals(linkMan) ? null : linkMan;
+    }
+
+    public String getLinkTel() {
+        return linkTel;
+    }
+
+    public void setLinkTel(String linkTel) {
+        this.linkTel = "".equals(linkTel) ? null : linkTel;
+    }
+
+    public String getLinkAddress() {
+        return linkAddress;
+    }
+
+    public void setLinkAddress(String linkAddress) {
+        this.linkAddress = "".equals(linkAddress) ? null : linkAddress;
+    }
+
+    public String getFax() {
+        return fax;
+    }
+
+    public void setFax(String fax) {
+        this.fax = "".equals(fax) ? null : fax;
+    }
+
+    public String getDescribe() {
+        return describe;
+    }
+
+    public void setDescribe(String describe) {
+        this.describe = "".equals(describe) ? null : describe;
     }
 
     public Date getCreateTime() {
@@ -38,59 +86,11 @@ public class Supplier {
         this.createTime = createTime;
     }
 
-    public String getSupplierName() {
-        return supplierName;
-    }
-
-    public void setSupplierName(String supplierName) {
-        this.supplierName = supplierName;
-    }
-
-    public String getLinkMan() {
-        return linkMan;
-    }
-
-    public void setLinkMan(String linkMan) {
-        this.linkMan = linkMan;
-    }
-
-    public String getLinkTel() {
-        return linkTel;
-    }
-
-    public void setLinkTel(String linkTel) {
-        this.linkTel = linkTel;
-    }
-
-    public String getLinkAddress() {
-        return linkAddress;
-    }
-
-    public void setLinkAddress(String linkAddress) {
-        this.linkAddress = linkAddress;
-    }
-
-    public String getFax() {
-        return fax;
-    }
-
-    public void setFax(String fax) {
-        this.fax = fax;
-    }
-
-    public String getDescribe() {
-        return describe;
-    }
-
-    public void setDescribe(String describe) {
-        this.describe = describe;
-    }
-
     public String getCreateTimeInString() {
         return createTimeInString;
     }
 
     public void setCreateTimeInString(String createTimeInString) {
-        this.createTimeInString = createTimeInString;
+        this.createTimeInString = "".equals(createTimeInString) ? null : createTimeInString;
     }
 }

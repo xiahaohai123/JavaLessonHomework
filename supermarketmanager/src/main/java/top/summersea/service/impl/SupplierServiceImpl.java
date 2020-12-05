@@ -35,4 +35,14 @@ public class SupplierServiceImpl implements SupplierService {
         }
         return suppliers;
     }
+
+    @Override
+    public boolean isSupplierExistent(String supplierId) {
+        return supplierDao.selectCountBySupplierId(supplierId) > 0;
+    }
+
+    @Override
+    public boolean regiserSupplier(Supplier supplier) {
+        return supplierDao.insertSupplier(supplier) > 0;
+    }
 }
