@@ -79,7 +79,7 @@
     </div>
 </section>
 <footer class="footer">
-    版权归北大青鸟
+    summersea
 </footer>
 <script src="${pageContext.request.contextPath}/js/time.js"></script>
 

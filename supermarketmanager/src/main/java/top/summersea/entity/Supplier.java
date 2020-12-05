@@ -19,6 +19,7 @@ public class Supplier {
     private String fax;
     private String describe;
     private Date createTime;
+    private String createTimeInString;
 
 
     public String getSupplierId() {
@@ -83,5 +84,13 @@ public class Supplier {
 
     public void setDescribe(String describe) {
         this.describe = describe;
+    }
+
+    public String getCreateTimeInString() {
+        return createTimeInString;
+    }
+
+    public void setCreateTimeInString(String createTimeInString) {
+        this.createTimeInString = createTimeInString;
     }
 }

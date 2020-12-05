@@ -4,6 +4,7 @@ import top.summersea.dao.SupplierDao;
 import top.summersea.dao.impl.SupplierDaoImpl;
 import top.summersea.entity.Supplier;
 import top.summersea.service.SupplierService;
+import top.summersea.util.TimeUtil;
 
 import java.util.List;
 
@@ -28,6 +29,10 @@ public class SupplierServiceImpl implements SupplierService {
         if (supplierName.length != 0) {
             supplierName[0] = "%" + supplierName[0] + "%";
         }
-        return supplierDao.selectAllSupplier(supplierName);
+        List<Supplier> suppliers = supplierDao.selectAllSupplier(supplierName);
+        for (Supplier supplier : suppliers) {
+            supplier.setCreateTimeInString(TimeUtil.dateToDateString(supplier.getCreateTime()));
+        }
+        return suppliers;
     }
 }

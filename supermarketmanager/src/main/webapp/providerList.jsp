@@ -43,10 +43,17 @@
                         '<td>' + mapObj.supplierName + '</td>' +
                         '<td>' + mapObj.linkMan + '</td>' +
                         '<td>' + mapObj.linkTel + '</td>' +
-                        '<td>' + mapObj.linkAddress + '</td>' +
-                        '<td>' + mapObj.createTime + '</td>' +
+                        '<td>' + mapObj.fax + '</td>' +
+                        '<td>' + mapObj.createTimeInString + '</td>' +
                         '<td>' +
-                        '<a href="/providerView.html"><img src="/img/read.png" alt="查看" title="查看"/></a>' +
+                        '<a href="/providerView.jsp?' +
+                        'supplierId=' + mapObj.supplierId +
+                        '&supplierName=' + mapObj.supplierName +
+                        '&linkMan=' + mapObj.linkMan +
+                        '&linkTel=' + mapObj.linkTel +
+                        '&linkAddress=' + mapObj.fax +
+                        '&describe=' + mapObj.describe +
+                        '"><img src="/img/read.png" alt="查看" title="查看"/></a>' +
                         '<a href="/providerUpdate.html"><img src="/img/xiugai.png" alt="修改" title="修改"/></a>' +
                         '<a href="#" class="removeProvider"><img src="/img/schu.png" alt="删除" title="删除"/></a>' +
                         '</td>' +
@@ -122,7 +129,7 @@
             <%--                    <td>${supplier.linkAddress}</td>--%>
             <%--                    <td>${supplier.createTime}</td>--%>
             <%--                    <td>--%>
-            <%--                        <a href="${pageContext.request.contextPath}/providerView.html"><img--%>
+            <%--                        <a href="${pageContext.request.contextPath}/providerView.jsp"><img--%>
             <%--                                src="${pageContext.request.contextPath}/img/read.png" alt="查看"--%>
             <%--                                title="查看"/></a>--%>
             <%--                        <a href="${pageContext.request.contextPath}/providerUpdate.html"><img--%>
