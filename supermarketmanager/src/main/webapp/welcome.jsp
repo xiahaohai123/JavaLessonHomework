@@ -25,7 +25,7 @@
         <p><span>下午好！</span><span
                 style="color: #fff21b">${sessionScope.username}</span> ,
             欢迎你！</p>
-        <a href="/login.jsp" id="exitSysOnTopRight">退出</a>
+        <a href="${pageContext.request.contextPath}/login.jsp" id="exitSysOnTopRight">退出</a>
     </div>
 </header>
 <!--时间-->
@@ -43,7 +43,7 @@
         <nav>
             <ul class="list">
                 <li><a href="${pageContext.request.contextPath}/billList.html">账单管理</a></li>
-                <li><a href="${pageContext.request.contextPath}/supplier/toSupplierManagerPage">供应商管理</a></li>
+                <li><a href="${pageContext.request.contextPath}/providerList.jsp">供应商管理</a></li>
                 <li><a href="${pageContext.request.contextPath}/productList.html">商品管理</a></li>
                 <li><a href="${pageContext.request.contextPath}/userList.jsp">用户管理</a></li>
                 <li><a href="${pageContext.request.contextPath}/password.jsp">密码修改</a></li>

@@ -23,7 +23,11 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-    public List<Supplier> getAllSupplier() {
-        return supplierDao.selectAllSupplier();
+    public List<Supplier> getAllSupplier(String... supplierName) {
+        // 加入模糊查询语法
+        if (supplierName.length != 0) {
+            supplierName[0] = "%" + supplierName[0] + "%";
+        }
+        return supplierDao.selectAllSupplier(supplierName);
     }
 }

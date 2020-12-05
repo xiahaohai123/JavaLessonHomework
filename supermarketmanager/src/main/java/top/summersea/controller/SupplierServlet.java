@@ -1,8 +1,10 @@
 package top.summersea.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import top.summersea.entity.Supplier;
 import top.summersea.service.SupplierService;
 import top.summersea.service.impl.SupplierServiceImpl;
+import top.summersea.util.JSONUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,10 +48,19 @@ public class SupplierServlet extends HttpServlet {
     }
 
     private void toSupplierManagerPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Supplier> supplierList = supplierService.getAllSupplier();
-        request.setAttribute("supplierList", supplierList);
-        request.setAttribute("listSize", supplierList.size());
+        response.setContentType("application/json;charset=utf-8");
+        String supplierName = request.getParameter("supplierName");
+        List<Supplier> supplierList;
+        if (null == supplierName || "".equals(supplierName)) {
+            supplierList = supplierService.getAllSupplier();
+        } else {
+            supplierList = supplierService.getAllSupplier(supplierName);
+        }
 
-        request.getRequestDispatcher("/providerList.jsp").forward(request, response);
+
+        JSONObject jsonObject = JSONUtil.createSuccessJSONObject();
+        jsonObject.put("data", supplierList);
+
+        response.getWriter().print(jsonObject);
     }
 }

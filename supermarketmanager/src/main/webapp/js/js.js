@@ -2,7 +2,7 @@
  * Created by yaling.he on 2015/11/17.
  */
 
-//供应商管理页面上点击删除按钮弹出删除框(/supplier/toSupplierManagerPage)
+//供应商管理页面上点击删除按钮弹出删除框(/providerList.jsp)
 $(function () {
     $('.removeProvider').click(function () {
         $('.zhezhao').css('display', 'block');

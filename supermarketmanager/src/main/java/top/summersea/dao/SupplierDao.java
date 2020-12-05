@@ -5,5 +5,5 @@ import top.summersea.entity.Supplier;
 import java.util.List;
 
 public interface SupplierDao {
-    List<Supplier> selectAllSupplier();
+    List<Supplier> selectAllSupplier(String... supplierName);
 }

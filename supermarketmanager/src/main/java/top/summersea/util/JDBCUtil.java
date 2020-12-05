@@ -138,6 +138,12 @@ public class JDBCUtil {
             }
         } catch (SQLException | IllegalAccessException | InstantiationException | NoSuchFieldException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return resList;

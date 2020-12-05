@@ -39,7 +39,7 @@
         <nav>
             <ul class="list">
                 <li><a href="${pageContext.request.contextPath}/billList.html">账单管理</a></li>
-                <li><a href="${pageContext.request.contextPath}/supplier/toSupplierManagerPage">供应商管理</a></li>
+                <li><a href="${pageContext.request.contextPath}/providerList.jsp">供应商管理</a></li>
                 <li><a href="productList.html">商品管理</a></li>
                 <li id="active"><a href="${pageContext.request.contextPath}/userList.jsp">用户管理</a></li>
                 <li><a href="${pageContext.request.contextPath}/password.jsp">密码修改</a></li>
