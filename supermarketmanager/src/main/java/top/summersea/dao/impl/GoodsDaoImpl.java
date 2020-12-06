@@ -80,4 +80,10 @@ public class GoodsDaoImpl implements GoodsDao {
                 goods.getGoodsId()};
         return jdbcUtil.executeUpdate(sql, objects);
     }
+
+    @Override
+    public Integer deleteGoods(String goodsId) {
+        String sql = "DELETE FROM goods WHERE goods_id = ?;";
+        return jdbcUtil.executeUpdate(sql, goodsId);
+    }
 }

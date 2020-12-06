@@ -13,4 +13,6 @@ public interface GoodsDao {
     Integer insertGoods(Goods goods);
 
     Integer updateGoods(Goods goods);
+
+    Integer deleteGoods(String goodsId);
 }

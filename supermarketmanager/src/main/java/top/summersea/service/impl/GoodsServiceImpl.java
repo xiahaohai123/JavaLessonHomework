@@ -45,4 +45,9 @@ public class GoodsServiceImpl implements GoodsService {
     public boolean updateGoods(Goods goods) {
         return goodsDao.updateGoods(goods) > 0;
     }
+
+    @Override
+    public boolean deleteGoods(String goodsId) {
+        return goodsDao.deleteGoods(goodsId) > 0;
+    }
 }

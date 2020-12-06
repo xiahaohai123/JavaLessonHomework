@@ -126,4 +126,14 @@ public class GoodsServlet extends HttpServlet {
         jsonObject.put("updateState", b);
         response.getWriter().print(jsonObject.toJSONString());
     }
+
+    private void deleteGoods(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String goodsId = request.getParameter("goodsId");
+
+        boolean b = goodsService.deleteGoods(goodsId);
+        response.setContentType("application/json;charset=utf-8");
+        JSONObject successJSONObject = JSONUtil.createSuccessJSONObject();
+        successJSONObject.put("deleteState", b);
+        response.getWriter().print(successJSONObject.toJSONString());
+    }
 }
