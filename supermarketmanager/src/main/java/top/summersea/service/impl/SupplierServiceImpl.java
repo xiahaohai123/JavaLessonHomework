@@ -42,7 +42,17 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-    public boolean regiserSupplier(Supplier supplier) {
+    public boolean registerSupplier(Supplier supplier) {
         return supplierDao.insertSupplier(supplier) > 0;
+    }
+
+    @Override
+    public boolean updateSupplier(Supplier supplier) {
+        return supplierDao.updateSupplier(supplier) > 0;
+    }
+
+    @Override
+    public boolean deleteSupplier(String supplierId) {
+        return supplierDao.deleteSupplier(supplierId) > 0;
     }
 }

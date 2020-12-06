@@ -55,4 +55,27 @@ public class SupplierDaoImpl implements SupplierDao {
                 supplier.getFax(), supplier.getCreateTime(), supplier.getDescribe()};
         return jdbcUtil.executeUpdate(sql, objects);
     }
+
+    @Override
+    public Integer updateSupplier(Supplier supplier) {
+        String sql = "UPDATE supplier SET " +
+                "supplier_name = ?, " +
+                "link_man = ?, " +
+                "link_tel = ?, " +
+                "link_address = ?, " +
+                "fax = ?, " +
+                "create_time = ?," +
+                "`describe` = ? " +
+                "WHERE supplier_id = ?";
+        Object[] objects = {supplier.getSupplierName(), supplier.getLinkMan(),
+                supplier.getLinkTel(), supplier.getLinkAddress(), supplier.getFax(),
+                supplier.getCreateTime(), supplier.getDescribe(), supplier.getSupplierId()};
+        return jdbcUtil.executeUpdate(sql, objects);
+    }
+
+    @Override
+    public Integer deleteSupplier(String supplierId) {
+        String sql = "DELETE FROM supplier WHERE supplier_id=?";
+        return jdbcUtil.executeUpdate(supplierId);
+    }
 }

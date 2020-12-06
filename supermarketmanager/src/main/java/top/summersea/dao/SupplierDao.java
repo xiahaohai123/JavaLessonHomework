@@ -17,4 +17,8 @@ public interface SupplierDao {
     Integer selectCountBySupplierId(String supplierId);
 
     Integer insertSupplier(Supplier supplier);
+
+    Integer updateSupplier(Supplier supplier);
+
+    Integer deleteSupplier(String supplierId);
 }

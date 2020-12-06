@@ -51,10 +51,18 @@
                         '&supplierName=' + mapObj.supplierName +
                         '&linkMan=' + mapObj.linkMan +
                         '&linkTel=' + mapObj.linkTel +
-                        '&linkAddress=' + mapObj.fax +
+                        '&fax=' + mapObj.fax +
                         '&describe=' + mapObj.describe +
                         '"><img src="/img/read.png" alt="查看" title="查看"/></a>' +
-                        '<a href="/providerUpdate.html"><img src="/img/xiugai.png" alt="修改" title="修改"/></a>' +
+                        '<a href="/providerUpdate.jsp?' +
+                        'supplierId=' + mapObj.supplierId +
+                        '&supplierName=' + mapObj.supplierName +
+                        '&linkMan=' + mapObj.linkMan +
+                        '&linkTel=' + mapObj.linkTel +
+                        '&linkAddress=' + mapObj.linkAddress +
+                        '&fax=' + mapObj.fax +
+                        '&describe=' + mapObj.describe +
+                        '"><img src="/img/xiugai.png" alt="修改" title="修改"/></a>' +
                         '<a href="#" class="removeProvider"><img src="/img/schu.png" alt="删除" title="删除"/></a>' +
                         '</td>' +
                         '</tr>')
@@ -132,7 +140,7 @@
             <%--                        <a href="${pageContext.request.contextPath}/providerView.jsp"><img--%>
             <%--                                src="${pageContext.request.contextPath}/img/read.png" alt="查看"--%>
             <%--                                title="查看"/></a>--%>
-            <%--                        <a href="${pageContext.request.contextPath}/providerUpdate.html"><img--%>
+            <%--                        <a href="${pageContext.request.contextPath}/providerUpdate.jsp"><img--%>
             <%--                                src="${pageContext.request.contextPath}/img/xiugai.png"--%>
             <%--                                alt="修改"--%>
             <%--                                title="修改"/></a>--%>

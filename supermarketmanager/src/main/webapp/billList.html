@@ -11,7 +11,7 @@
     <header class="publicHeader">
         <h1>超市账单管理系统</h1>
         <div class="publicHeaderR">
-            <p><span>下午好！</span><span style="color: #fff21b"> Admin</span> , 欢迎你！</p>
+            <p><span>下午好！</span><span style="color: #fff21b"> ${sessionScope.username}</span> , 欢迎你！</p>
             <a href="/login.jsp">退出</a>
         </div>
     </header>
@@ -94,8 +94,8 @@
                     <td>15918230478</td>
                     <td>2015-11-12</td>
                     <td>
-                        <a href="providerView.jsp"><img src="img/read.png" alt="查看" title="查看"/></a>
-                        <a href="providerUpdate.html"><img src="img/xiugai.png" alt="修改" title="修改"/></a>
+                        <a href="/providerView.jsp"><img src="img/read.png" alt="查看" title="查看"/></a>
+                        <a href="/providerUpdate.jsp"><img src="img/xiugai.png" alt="修改" title="修改"/></a>
                         <a href="#" class="removeBill"><img src="img/schu.png" alt="删除" title="删除"/></a>
                     </td>
                 </tr>

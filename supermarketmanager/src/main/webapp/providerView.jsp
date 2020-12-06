@@ -52,7 +52,7 @@
             <p><strong>供应商名称：</strong><span>${param.supplierName}</span></p>
             <p><strong>联系人：</strong><span>${param.linkMan}</span></p>
             <p><strong>联系电话：</strong><span>${param.linkTel}</span></p>
-            <p><strong>传真：</strong><span>${param.linkAddress}</span></p>
+            <p><strong>传真：</strong><span>${param.fax}</span></p>
             <p><strong>描述：</strong><span>${param.describe}</span></p>
 
             <a href="${pageContext.request.contextPath}/providerList.jsp">返回</a>

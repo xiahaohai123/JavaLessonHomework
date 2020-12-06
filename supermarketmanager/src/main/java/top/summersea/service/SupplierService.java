@@ -9,5 +9,9 @@ public interface SupplierService {
 
     boolean isSupplierExistent(String supplierId);
 
-    boolean regiserSupplier(Supplier supplier);
+    boolean registerSupplier(Supplier supplier);
+
+    boolean updateSupplier(Supplier supplier);
+
+    boolean deleteSupplier(String supplierId);
 }

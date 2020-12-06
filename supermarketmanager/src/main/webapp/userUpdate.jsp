@@ -39,7 +39,6 @@
                         alert("出错啦！ ")
                     }
                 });
-
             });
 
             function getQueryVariable(variable) {

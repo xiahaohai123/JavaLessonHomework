@@ -1,6 +1,8 @@
 package top.summersea.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import top.summersea.entity.Supplier;
 import top.summersea.service.SupplierService;
 import top.summersea.service.impl.SupplierServiceImpl;
@@ -61,7 +63,7 @@ public class SupplierServlet extends HttpServlet {
         JSONObject jsonObject = JSONUtil.createSuccessJSONObject();
         jsonObject.put("data", supplierList);
 
-        response.getWriter().print(jsonObject);
+        response.getWriter().print(JSON.toJSONString(jsonObject, SerializerFeature.WriteNullStringAsEmpty));
     }
 
     private void isSupplierIdExistent(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -93,11 +95,47 @@ public class SupplierServlet extends HttpServlet {
         supplier.setFax(fax);
         supplier.setDescribe(describe);
 
-        boolean b = supplierService.regiserSupplier(supplier);
+        boolean b = supplierService.registerSupplier(supplier);
 
         response.setContentType("application/json;charset=utf-8");
         JSONObject successJSONObject = JSONUtil.createSuccessJSONObject();
         successJSONObject.put("insertState", b);
+        response.getWriter().print(successJSONObject.toJSONString());
+    }
+
+    private void updateSupplier(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String supplierId = request.getParameter("supplierId");
+        String supplierName = request.getParameter("supplierName");
+        String linkMan = request.getParameter("linkMan");
+        String linkTel = request.getParameter("linkTel");
+        String linkAddress = request.getParameter("linkAddress");
+        String fax = request.getParameter("fax");
+        String describe = request.getParameter("describe");
+
+        Supplier supplier = new Supplier();
+        supplier.setSupplierId(supplierId);
+        supplier.setSupplierName(supplierName);
+        supplier.setLinkMan(linkMan);
+        supplier.setLinkTel(linkTel);
+        supplier.setLinkAddress(linkAddress);
+        supplier.setFax(fax);
+        supplier.setDescribe(describe);
+
+        boolean b = supplierService.updateSupplier(supplier);
+
+        response.setContentType("application/json;charset=utf-8");
+        JSONObject successJSONObject = JSONUtil.createSuccessJSONObject();
+        successJSONObject.put("updateState", b);
+        response.getWriter().print(successJSONObject.toJSONString());
+    }
+
+    private void deleteSupplier(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String supplierId = request.getParameter("supplierId");
+
+        boolean b = supplierService.deleteSupplier(supplierId);
+        response.setContentType("application/json;charset=utf-8");
+        JSONObject successJSONObject = JSONUtil.createSuccessJSONObject();
+        successJSONObject.put("deleteState", b);
         response.getWriter().print(successJSONObject.toJSONString());
     }
 }
