@@ -2,6 +2,7 @@ package top.summersea.service.impl;
 
 import top.summersea.dao.GoodsDao;
 import top.summersea.dao.impl.GoodsDaoImpl;
+import top.summersea.entity.Goods;
 import top.summersea.service.GoodsService;
 
 import java.util.List;
@@ -28,5 +29,15 @@ public class GoodsServiceImpl implements GoodsService {
         }
 
         return goodsDao.selectAllGoods(goodsName);
+    }
+
+    @Override
+    public boolean isGoodsIdExistent(String goodsId) {
+        return goodsDao.SelectCountByGoodsId(goodsId) > 0;
+    }
+
+    @Override
+    public boolean addGoods(Goods goods) {
+        return goodsDao.insertGoods(goods) > 0;
     }
 }

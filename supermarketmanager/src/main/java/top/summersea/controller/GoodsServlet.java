@@ -1,6 +1,7 @@
 package top.summersea.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import top.summersea.entity.Goods;
 import top.summersea.service.GoodsService;
 import top.summersea.service.impl.GoodsServiceImpl;
 import top.summersea.util.JSONUtil;
@@ -63,6 +64,42 @@ public class GoodsServlet extends HttpServlet {
         response.setContentType("application/json;charset=utf-8");
         JSONObject jsonObject = JSONUtil.createSuccessJSONObject();
         jsonObject.put("data", goodsList);
+        response.getWriter().print(jsonObject.toJSONString());
+    }
+
+    private void isGoodsIdExistent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("application/json;charset=utf-8");
+
+        String goodsId = request.getParameter("goodsId");
+
+        boolean goodsIdExistent = goodsService.isGoodsIdExistent(goodsId);
+
+        JSONObject successJSONObject = JSONUtil.createSuccessJSONObject();
+        successJSONObject.put("isExistent", goodsIdExistent);
+        response.getWriter().print(successJSONObject.toJSONString());
+    }
+
+    private void addGoods(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("application/json;charset=utf-8");
+
+        String goodsId = request.getParameter("goodsId");
+        String goodsName = request.getParameter("goodsName");
+        Double goodsPrice = Double.valueOf(request.getParameter("goodsPrice"));
+        String unit = request.getParameter("unit");
+        Integer stock = Integer.valueOf(request.getParameter("stock"));
+        String supplierId = request.getParameter("supplierId");
+
+        Goods goods = new Goods();
+        goods.setGoodsId(goodsId);
+        goods.setGoodsName(goodsName);
+        goods.setGoodsPrice(goodsPrice);
+        goods.setUnit(unit);
+        goods.setStock(stock);
+        goods.setSupplierId(supplierId);
+
+        boolean b = goodsService.addGoods(goods);
+        JSONObject jsonObject = JSONUtil.createSuccessJSONObject();
+        jsonObject.put("insertState", b);
         response.getWriter().print(jsonObject.toJSONString());
     }
 }

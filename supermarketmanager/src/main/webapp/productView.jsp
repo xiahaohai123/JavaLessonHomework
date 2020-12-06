@@ -49,7 +49,7 @@
             <span>商品管理页面 >> 信息查看</span>
         </div>
         <div class="providerView">
-            <p><strong>商品编号：</strong><span>${param.goodId}</span></p>
+            <p><strong>商品编号：</strong><span>${param.goodsId}</span></p>
             <p><strong>商品名称：</strong><span>${param.goodsName}</span></p>
             <p><strong>单价：</strong><span>${param.goodsPrice}</span></p>
             <p><strong>单位：</strong><span>${param.unit}</span></p>

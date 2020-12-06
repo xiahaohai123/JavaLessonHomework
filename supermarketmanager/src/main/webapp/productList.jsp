@@ -26,14 +26,14 @@
                 $.each(data.data, function (index, mapObj) {
                     tbody.append(
                         '<tr>' +
-                        '<td>' + mapObj.goodId + '</td>' +
+                        '<td>' + mapObj.goodsId + '</td>' +
                         '<td>' + mapObj.goodsName + '</td>' +
                         '<td>' + mapObj.goodsPrice + '</td>' +
                         '<td>' + mapObj.linkTel + '</td>' +
                         '<td>' + mapObj.unit + '</td>' +
                         '<td>' +
                         '<a href="/productView.jsp?' +
-                        'goodId=' + mapObj.goodId +
+                        'goodsId=' + mapObj.goodsId +
                         '&goodsName=' + mapObj.goodsName +
                         '&goodsPrice=' + mapObj.goodsPrice +
                         '&unit=' + mapObj.unit +
@@ -94,7 +94,7 @@
             <span>商品名称：</span>
             <input type="text" placeholder="请输商品的名称" id="goodsQueryName"/>
             <input type="button" value="查询" id="goodsQueryButton"/>
-            <a href="productAdd.html">添加商品</a>
+            <a href="${pageContext.request.contextPath}/productAdd.jsp">添加商品</a>
         </div>
         <!--供应商操作表格-->
         <table class="providerTable" cellpadding="0" cellspacing="0" id="goodsTable">

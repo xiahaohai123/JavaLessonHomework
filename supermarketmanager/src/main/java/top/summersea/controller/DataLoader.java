@@ -44,9 +44,24 @@ public class DataLoader {
         return t;
     }
 
+//    public static <T> T loadClassByClass(Class<T> cls, HttpServletRequest request) throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
+//        T t = cls.newInstance();
+//
+//        Field[] declaredFields = cls.getDeclaredFields();
+//        for (Field declaredField : declaredFields) {
+//            String fieldName = declaredField.getName();
+//            Class<?> type = declaredField.getType();
+//            String methodName = getSetMethodName(fieldName);
+//            Method declaredMethod = cls.getDeclaredMethod(methodName, type);
+//            declaredMethod.invoke(t, request.getParameter(fieldName));
+//        }
+//    }
+
     private static String getSetMethodName(String parameter) {
         char[] chars = parameter.toCharArray();
         chars[0] = Character.toUpperCase(chars[0]);
         return "set" + String.valueOf(chars);
     }
+
+
 }
