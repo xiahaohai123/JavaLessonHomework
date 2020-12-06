@@ -63,10 +63,30 @@
                         '&fax=' + mapObj.fax +
                         '&describe=' + mapObj.describe +
                         '"><img src="/img/xiugai.png" alt="修改" title="修改"/></a>' +
-                        '<a href="#" class="removeProvider"><img src="/img/schu.png" alt="删除" title="删除"/></a>' +
+                        '<a href="javascript:void(0)" class="removeProvider" onclick="onDelete(this)" supplierId = "' + mapObj.supplierId + '"><img src="/img/schu.png" alt="删除" title="删除"/></a>' +
                         '</td>' +
                         '</tr>')
                 })
+            })
+        }
+
+        function onDelete(body) {
+            if (window.confirm("****您确定要删除吗?")) {
+                deleteSupplier($(body).attr("supplierId"));
+                // document.location.href = "/userInfo/deleteUserInfoById?userId=" + ();
+            }
+        }
+
+        function deleteSupplier(supplierId) {
+            $.get("/supplier/deleteSupplier", {"supplierId": supplierId}, function (data) {
+                if (data.deleteState === true) {
+                    alert("删除成功！");
+                    window.location.reload();
+                } else if (data.deleteState === true) {
+                    alert("删除失败！")
+                } else {
+                    alert("未知错误！")
+                }
             })
         }
     </script>

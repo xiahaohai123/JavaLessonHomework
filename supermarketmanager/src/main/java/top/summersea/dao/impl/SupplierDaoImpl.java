@@ -75,7 +75,7 @@ public class SupplierDaoImpl implements SupplierDao {
 
     @Override
     public Integer deleteSupplier(String supplierId) {
-        String sql = "DELETE FROM supplier WHERE supplier_id=?";
-        return jdbcUtil.executeUpdate(supplierId);
+        String sql = "DELETE FROM supplier WHERE supplier_id = ?;";
+        return jdbcUtil.executeUpdate(sql, supplierId);
     }
 }

@@ -76,24 +76,26 @@ public class SupplierServlet extends HttpServlet {
         response.getWriter().print(successJSONObject.toJSONString());
     }
 
-    private void registerSupplier(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void registerSupplier(HttpServletRequest request, HttpServletResponse response) throws IOException, InstantiationException, IllegalAccessException {
 
-        String supplierId = request.getParameter("supplierId");
-        String supplierName = request.getParameter("supplierName");
-        String linkMan = request.getParameter("linkMan");
-        String linkTel = request.getParameter("linkTel");
-        String linkAddress = request.getParameter("linkAddress");
-        String fax = request.getParameter("fax");
-        String describe = request.getParameter("describe");
+//        String supplierId = request.getParameter("supplierId");
+//        String supplierName = request.getParameter("supplierName");
+//        String linkMan = request.getParameter("linkMan");
+//        String linkTel = request.getParameter("linkTel");
+//        String linkAddress = request.getParameter("linkAddress");
+//        String fax = request.getParameter("fax");
+//        String describe = request.getParameter("describe");
+//
+//        Supplier supplier = new Supplier();
+//        supplier.setSupplierId(supplierId);
+//        supplier.setSupplierName(supplierName);
+//        supplier.setLinkMan(linkMan);
+//        supplier.setLinkTel(linkTel);
+//        supplier.setLinkAddress(linkAddress);
+//        supplier.setFax(fax);
+//        supplier.setDescribe(describe);
 
-        Supplier supplier = new Supplier();
-        supplier.setSupplierId(supplierId);
-        supplier.setSupplierName(supplierName);
-        supplier.setLinkMan(linkMan);
-        supplier.setLinkTel(linkTel);
-        supplier.setLinkAddress(linkAddress);
-        supplier.setFax(fax);
-        supplier.setDescribe(describe);
+        Supplier supplier = DataLoader.loadClassByRequest(Supplier.class, request);
 
         boolean b = supplierService.registerSupplier(supplier);
 
@@ -103,23 +105,25 @@ public class SupplierServlet extends HttpServlet {
         response.getWriter().print(successJSONObject.toJSONString());
     }
 
-    private void updateSupplier(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String supplierId = request.getParameter("supplierId");
-        String supplierName = request.getParameter("supplierName");
-        String linkMan = request.getParameter("linkMan");
-        String linkTel = request.getParameter("linkTel");
-        String linkAddress = request.getParameter("linkAddress");
-        String fax = request.getParameter("fax");
-        String describe = request.getParameter("describe");
+    private void updateSupplier(HttpServletRequest request, HttpServletResponse response) throws IOException, InstantiationException, IllegalAccessException {
+//        String supplierId = request.getParameter("supplierId");
+//        String supplierName = request.getParameter("supplierName");
+//        String linkMan = request.getParameter("linkMan");
+//        String linkTel = request.getParameter("linkTel");
+//        String linkAddress = request.getParameter("linkAddress");
+//        String fax = request.getParameter("fax");
+//        String describe = request.getParameter("describe");
+//
+//        Supplier supplier = new Supplier();
+//        supplier.setSupplierId(supplierId);
+//        supplier.setSupplierName(supplierName);
+//        supplier.setLinkMan(linkMan);
+//        supplier.setLinkTel(linkTel);
+//        supplier.setLinkAddress(linkAddress);
+//        supplier.setFax(fax);
+//        supplier.setDescribe(describe);
 
-        Supplier supplier = new Supplier();
-        supplier.setSupplierId(supplierId);
-        supplier.setSupplierName(supplierName);
-        supplier.setLinkMan(linkMan);
-        supplier.setLinkTel(linkTel);
-        supplier.setLinkAddress(linkAddress);
-        supplier.setFax(fax);
-        supplier.setDescribe(describe);
+        Supplier supplier = DataLoader.loadClassByRequest(Supplier.class, request);
 
         boolean b = supplierService.updateSupplier(supplier);
 
