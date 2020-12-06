@@ -11,4 +11,6 @@ public interface GoodsDao {
     Integer SelectCountByGoodsId(String goodsId);
 
     Integer insertGoods(Goods goods);
+
+    Integer updateGoods(Goods goods);
 }

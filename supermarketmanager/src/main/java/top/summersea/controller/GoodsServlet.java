@@ -102,4 +102,28 @@ public class GoodsServlet extends HttpServlet {
         jsonObject.put("insertState", b);
         response.getWriter().print(jsonObject.toJSONString());
     }
+
+    private void updateGoods(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("application/json;charset=utf-8");
+
+        String goodsId = request.getParameter("goodsId");
+        String goodsName = request.getParameter("goodsName");
+        Double goodsPrice = Double.valueOf(request.getParameter("goodsPrice"));
+        String unit = request.getParameter("unit");
+        Integer stock = Integer.valueOf(request.getParameter("stock"));
+        String supplierId = request.getParameter("supplierId");
+
+        Goods goods = new Goods();
+        goods.setGoodsId(goodsId);
+        goods.setGoodsName(goodsName);
+        goods.setGoodsPrice(goodsPrice);
+        goods.setUnit(unit);
+        goods.setStock(stock);
+        goods.setSupplierId(supplierId);
+
+        boolean b = goodsService.updateGoods(goods);
+        JSONObject jsonObject = JSONUtil.createSuccessJSONObject();
+        jsonObject.put("updateState", b);
+        response.getWriter().print(jsonObject.toJSONString());
+    }
 }

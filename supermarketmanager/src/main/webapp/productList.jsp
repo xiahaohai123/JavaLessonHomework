@@ -40,7 +40,14 @@
                         '&supplierId=' + mapObj.supplierId +
                         '&stock=' + mapObj.stock +
                         '"><img src="/img/read.png" alt="查看" title="查看"/></a>' +
-                        '<a href="/productUpdate.html"><img src="/img/xiugai.png" alt="修改" title="修改"/></a>' +
+                        '<a href="/productUpdate.jsp?' +
+                        'goodsId=' + mapObj.goodsId +
+                        '&goodsName=' + mapObj.goodsName +
+                        '&goodsPrice=' + mapObj.goodsPrice +
+                        '&unit=' + mapObj.unit +
+                        '&supplierId=' + mapObj.supplierId +
+                        '&stock=' + mapObj.stock +
+                        '"><img src="/img/xiugai.png" alt="修改" title="修改"/></a>' +
                         '<a href="javascript:void(0)" class="removeProvider"><img src="/img/schu.png" alt="删除" title="删除"/></a>' +
                         '</td>' +
                         '</tr>'

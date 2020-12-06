@@ -65,4 +65,19 @@ public class GoodsDaoImpl implements GoodsDao {
                 goods.getUnit(), goods.getSupplierId(), goods.getStock()};
         return jdbcUtil.executeUpdate(sql, objects);
     }
+
+    @Override
+    public Integer updateGoods(Goods goods) {
+        String sql = "UPDATE goods SET " +
+                "goods_name = ?, " +
+                "goods_price = ?, " +
+                "unit = ?, " +
+                "supplier_id = ?, " +
+                "stock = ? " +
+                "WHERE goods_id = ?;";
+        Object[] objects = {goods.getGoodsName(), goods.getGoodsPrice(),
+                goods.getUnit(), goods.getSupplierId(), goods.getStock(),
+                goods.getGoodsId()};
+        return jdbcUtil.executeUpdate(sql, objects);
+    }
 }

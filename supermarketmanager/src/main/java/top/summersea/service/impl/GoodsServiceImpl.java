@@ -40,4 +40,9 @@ public class GoodsServiceImpl implements GoodsService {
     public boolean addGoods(Goods goods) {
         return goodsDao.insertGoods(goods) > 0;
     }
+
+    @Override
+    public boolean updateGoods(Goods goods) {
+        return goodsDao.updateGoods(goods) > 0;
+    }
 }

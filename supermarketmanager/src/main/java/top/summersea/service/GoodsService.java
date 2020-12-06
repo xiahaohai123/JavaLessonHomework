@@ -10,4 +10,6 @@ public interface GoodsService {
     boolean isGoodsIdExistent(String goodsId);
 
     boolean addGoods(Goods goods);
+
+    boolean updateGoods(Goods goods);
 }
