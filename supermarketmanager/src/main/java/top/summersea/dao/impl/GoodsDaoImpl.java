@@ -29,6 +29,7 @@ public class GoodsDaoImpl implements GoodsDao {
                     "goods_name, " +
                     "goods_price, " +
                     "unit, " +
+                    "g.supplier_id, " +
                     "supplier_name, " +
                     "link_tel,  " +
                     "stock " +
@@ -40,6 +41,7 @@ public class GoodsDaoImpl implements GoodsDao {
                     "goods_name, " +
                     "goods_price, " +
                     "unit, " +
+                    "g.supplier_id, " +
                     "supplier_name, " +
                     "link_tel,  " +
                     "stock " +
