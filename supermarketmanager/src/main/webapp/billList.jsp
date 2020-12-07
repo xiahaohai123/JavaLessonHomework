@@ -34,7 +34,15 @@
                         '<td>' + (mapObj.pay === true ? "是" : "否") + '</td>' +
                         '<td>' + mapObj.createTime + '</td>' +
                         '<td>' +
-                        '<a href="/billView.html"><img src="img/read.png" alt="查看" title="查看"/></a>' +
+                        '<a href="/billView.jsp?' +
+                        'orderId=' + mapObj.orderId +
+                        '&goodsName=' + mapObj.goodsName +
+                        '&unit=' + mapObj.unit +
+                        '&count=' + mapObj.count +
+                        '&total=' + mapObj.total +
+                        '&supplierName=' + mapObj.supplierName +
+                        '&pay=' + (mapObj.pay === true ? "是" : "否") +
+                        '"><img src="img/read.png" alt="查看" title="查看"/></a>' +
                         '<a href="/billUpdate.html"><img src="img/xiugai.png" alt="修改" title="修改"/></a>' +
                         '<a href="javascript:void(0)" class="removeBill" orderId="' + mapObj.orderId + '"><img src="img/schu.png" alt="删除" title="删除"/></a>' +
                         '</td>' +
@@ -110,8 +118,8 @@
             <span>供应商：</span>
             <select name="tigong" id="supplierSelector">
                 <option value="">--请选择--</option>
-<%--                <option value="北京市粮油总公司">北京市粮油总公司</option>--%>
-<%--                <option value="邯郸市五得利面粉厂">邯郸市五得利面粉厂</option>--%>
+                <%--                <option value="北京市粮油总公司">北京市粮油总公司</option>--%>
+                <%--                <option value="邯郸市五得利面粉厂">邯郸市五得利面粉厂</option>--%>
             </select>
 
             <span>是否付款：</span>

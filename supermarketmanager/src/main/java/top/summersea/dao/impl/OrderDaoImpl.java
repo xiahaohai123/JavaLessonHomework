@@ -25,7 +25,8 @@ public class OrderDaoImpl implements OrderDao {
         String sql;
         List<Object> objects;
         sql = "SELECT order_id, count, total, pay, o.create_time, " +
-                "g.goods_name, s.supplier_name " +
+                "g.goods_name, s.supplier_name, " +
+                "g.unit " +
                 "FROM `order` o LEFT JOIN goods g ON o.goods_id = g.goods_id " +
                 "LEFT JOIN supplier s ON g.supplier_id = s.supplier_id;";
         objects = jdbcUtil.executeAssociationQueryForList(sql);
@@ -41,7 +42,8 @@ public class OrderDaoImpl implements OrderDao {
         if (hasPayed == null) {
             sql = "SELECT " +
                     "order_id, count, total, pay, o.create_time, " +
-                    "g.goods_name, s.supplier_name " +
+                    "g.goods_name, s.supplier_name, " +
+                    "g.unit " +
                     "FROM `order` o INNER JOIN goods g " +
                     "ON o.goods_id = g.goods_id AND goods_name LIKE ? " +
                     "INNER JOIN supplier s " +
@@ -50,7 +52,8 @@ public class OrderDaoImpl implements OrderDao {
         } else {
             sql = "SELECT " +
                     "order_id, count, total, pay, o.create_time, " +
-                    "g.goods_name, s.supplier_name " +
+                    "g.goods_name, s.supplier_name, " +
+                    "g.unit " +
                     "FROM `order` o INNER JOIN goods g " +
                     "ON o.goods_id = g.goods_id AND goods_name LIKE ? AND pay = ? " +
                     "INNER JOIN supplier s " +
