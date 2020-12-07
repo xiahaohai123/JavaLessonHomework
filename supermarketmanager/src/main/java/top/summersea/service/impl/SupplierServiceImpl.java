@@ -55,4 +55,9 @@ public class SupplierServiceImpl implements SupplierService {
     public boolean deleteSupplier(String supplierId) {
         return supplierDao.deleteSupplier(supplierId) > 0;
     }
+
+    @Override
+    public List<Object> getAllSupplierName() {
+        return supplierDao.selectAllSupplierName();
+    }
 }

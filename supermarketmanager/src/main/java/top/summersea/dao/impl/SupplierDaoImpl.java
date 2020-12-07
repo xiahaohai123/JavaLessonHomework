@@ -78,4 +78,10 @@ public class SupplierDaoImpl implements SupplierDao {
         String sql = "DELETE FROM supplier WHERE supplier_id = ?;";
         return jdbcUtil.executeUpdate(sql, supplierId);
     }
+
+    @Override
+    public List<Object> selectAllSupplierName() {
+        String sql = "SELECT supplier_name FROM supplier";
+        return jdbcUtil.executeAssociationQueryForList(sql);
+    }
 }

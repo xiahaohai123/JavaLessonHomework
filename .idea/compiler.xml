@@ -9,12 +9,12 @@
         <module name="javahw1127" />
         <module name="javahw1126" />
         <module name="javaexam1128" />
-        <module name="javaexam1120" />
+        <module name="javahw1125" />
         <module name="javahw1201" />
-        <module name="javahw1118" />
+        <module name="javaexam1120" />
         <module name="supermarketmanager" />
         <module name="WordReplacer" />
-        <module name="javahw1125" />
+        <module name="javahw1118" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="8">

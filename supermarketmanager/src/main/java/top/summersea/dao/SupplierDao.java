@@ -21,4 +21,6 @@ public interface SupplierDao {
     Integer updateSupplier(Supplier supplier);
 
     Integer deleteSupplier(String supplierId);
+
+    List<Object> selectAllSupplierName();
 }

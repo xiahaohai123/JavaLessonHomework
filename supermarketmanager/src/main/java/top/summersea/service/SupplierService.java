@@ -14,4 +14,6 @@ public interface SupplierService {
     boolean updateSupplier(Supplier supplier);
 
     boolean deleteSupplier(String supplierId);
+
+    List<Object> getAllSupplierName();
 }

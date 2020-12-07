@@ -110,4 +110,13 @@ public class SupplierServlet extends HttpServlet {
         successJSONObject.put("deleteState", b);
         response.getWriter().print(successJSONObject.toJSONString());
     }
+
+    private void getAllSupplierName(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("application/json;charset=utf-8");
+        List<Object> allSupplierName = supplierService.getAllSupplierName();
+        JSONObject jsonObject = JSONUtil.createSuccessJSONObject();
+        jsonObject.put("data", allSupplierName);
+
+        response.getWriter().print(jsonObject.toJSONString());
+    }
 }

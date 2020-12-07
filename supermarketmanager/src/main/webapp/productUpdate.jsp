@@ -66,7 +66,7 @@
         <h2 class="leftH2"><span class="span1"></span>功能列表 <span></span></h2>
         <nav>
             <ul class="list">
-                <li><a href="billList.html">账单管理</a></li>
+                <li><a href="billList.jsp">账单管理</a></li>
                 <li><a href="${pageContext.request.contextPath}/providerList.jsp">供应商管理</a></li>
                 <li id="active"><a href="productList.jsp">商品管理</a></li>
                 <li><a href="${pageContext.request.contextPath}/userList.jsp">用户管理</a></li>

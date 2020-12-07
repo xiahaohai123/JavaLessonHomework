@@ -1,5 +1,6 @@
 package top.summersea.util;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,6 +32,17 @@ public class TimeUtil {
     public static String dateToDateString(Date date) {
         if (date == null) return null;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return simpleDateFormat.format(date);
+    }
+
+    public static String timeStampToTimeString(Timestamp timestamp) {
+        if (timestamp == null) return null;
+        return timeStampToTimeString(new Date(timestamp.getTime()));
+    }
+
+    public static String timeStampToTimeString(Date date) {
+        if (date == null) return null;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日");
         return simpleDateFormat.format(date);
     }
 }

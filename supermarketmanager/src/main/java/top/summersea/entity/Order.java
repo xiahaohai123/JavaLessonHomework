@@ -15,7 +15,7 @@ public class Order {
     private String goodId;
     private Integer count;
     private Double total;
-    private Integer pay;
+    private Boolean pay;
     private Date createTime;
 
     public String getOrderId() {
@@ -23,7 +23,7 @@ public class Order {
     }
 
     public void setOrderId(String orderId) {
-        this.orderId = orderId;
+        this.orderId = "".equals(orderId) ? null : orderId;
     }
 
     public String getGoodId() {
@@ -31,7 +31,8 @@ public class Order {
     }
 
     public void setGoodId(String goodId) {
-        this.goodId = goodId;
+        this.goodId = "".equals(goodId) ? null : goodId;
+
     }
 
     public Integer getCount() {
@@ -50,11 +51,12 @@ public class Order {
         this.total = total;
     }
 
-    public Integer getPay() {
+
+    public Boolean getPay() {
         return pay;
     }
 
-    public void setPay(Integer pay) {
+    public void setPay(Boolean pay) {
         this.pay = pay;
     }
 
