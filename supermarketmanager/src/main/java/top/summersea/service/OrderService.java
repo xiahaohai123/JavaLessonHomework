@@ -13,4 +13,6 @@ public interface OrderService {
     boolean addOrder(Map<String, Object> map);
 
     boolean updateOrderPay(Order order);
+
+    boolean deleteOrder(String orderId);
 }

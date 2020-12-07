@@ -67,4 +67,9 @@ public class OrderServiceImpl implements OrderService {
     public boolean updateOrderPay(Order order) {
         return orderDao.updateOrder(order) > 0;
     }
+
+    @Override
+    public boolean deleteOrder(String orderId) {
+        return orderDao.deleteOrder(orderId) > 0;
+    }
 }

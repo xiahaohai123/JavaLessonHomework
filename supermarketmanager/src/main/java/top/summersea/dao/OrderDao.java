@@ -13,4 +13,6 @@ public interface OrderDao {
     Integer insertOrder(Map<String, Object> map);
 
     Integer updateOrder(Order order);
+
+    Integer deleteOrder(String orderId);
 }

@@ -52,7 +52,7 @@
                         '&supplierName=' + mapObj.supplierName +
                         '&pay=' + mapObj.pay +
                         '"><img src="img/xiugai.png" alt="修改" title="修改"/></a>' +
-                        '<a href="javascript:void(0)" class="removeBill" orderId="' + mapObj.orderId + '"><img src="img/schu.png" alt="删除" title="删除"/></a>' +
+                        '<a href="javascript:void(0)" class="removeBill" onclick="onDelete(this)" orderId="' + mapObj.orderId + '"><img src="img/schu.png" alt="删除" title="删除"/></a>' +
                         '</td>' +
                         '</tr>')
                 })
@@ -81,7 +81,26 @@
                 // console.log(data);
                 getBillList(data)
             })
-        })
+        });
+
+        function onDelete(body) {
+            if (window.confirm("****您确定要删除吗?")) {
+                deleteGoods($(body).attr("orderId"));
+            }
+        }
+
+        function deleteGoods(orderId) {
+            $.get("/order/deleteOrder", {"orderId": orderId}, function (data) {
+                if (data.deleteState === true) {
+                    alert("删除成功！");
+                    window.location.reload();
+                } else if (data.deleteState === true) {
+                    alert("删除失败！")
+                } else {
+                    alert("未知错误！")
+                }
+            })
+        }
     </script>
 </head>
 <body>

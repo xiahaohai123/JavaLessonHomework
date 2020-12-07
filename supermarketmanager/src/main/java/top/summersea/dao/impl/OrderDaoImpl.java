@@ -92,4 +92,10 @@ public class OrderDaoImpl implements OrderDao {
 
 
     }
+
+    @Override
+    public Integer deleteOrder(String orderId) {
+        String sql = "DELETE FROM `order` WHERE order_id = ?";
+        return jdbcUtil.executeUpdate(sql, orderId);
+    }
 }

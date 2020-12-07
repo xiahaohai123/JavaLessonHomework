@@ -107,4 +107,14 @@ public class OrderServlet extends HttpServlet {
         jsonObject.put("updateState", b);
         response.getWriter().print(jsonObject.toJSONString());
     }
+
+    private void deleteOrder(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String orderId = request.getParameter("orderId");
+
+        boolean b = orderService.deleteOrder(orderId);
+        response.setContentType("application/json;charset=utf-8");
+        JSONObject successJSONObject = JSONUtil.createSuccessJSONObject();
+        successJSONObject.put("deleteState", b);
+        response.getWriter().print(successJSONObject.toJSONString());
+    }
 }
