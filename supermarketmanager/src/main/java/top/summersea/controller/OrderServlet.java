@@ -1,6 +1,7 @@
 package top.summersea.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import top.summersea.entity.Order;
 import top.summersea.service.OrderService;
 import top.summersea.service.impl.OrderServiceImpl;
 import top.summersea.util.JSONUtil;
@@ -89,5 +90,21 @@ public class OrderServlet extends HttpServlet {
         jsonObject.put("insertState", b);
         response.getWriter().print(jsonObject.toJSONString());
 
+    }
+
+    private void updateOrder(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("application/json;charset=utf-8");
+
+        String orderId = request.getParameter("orderId");
+        boolean pay = Boolean.valueOf(request.getParameter("orderId"));
+        Order order = new Order();
+        order.setOrderId(orderId);
+        order.setPay(pay);
+
+        boolean b = orderService.updateOrderPay(order);
+
+        JSONObject jsonObject = JSONUtil.createSuccessJSONObject();
+        jsonObject.put("updateState", b);
+        response.getWriter().print(jsonObject.toJSONString());
     }
 }

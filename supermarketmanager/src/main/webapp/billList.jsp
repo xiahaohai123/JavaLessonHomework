@@ -43,7 +43,15 @@
                         '&supplierName=' + mapObj.supplierName +
                         '&pay=' + (mapObj.pay === true ? "是" : "否") +
                         '"><img src="img/read.png" alt="查看" title="查看"/></a>' +
-                        '<a href="/billUpdate.html"><img src="img/xiugai.png" alt="修改" title="修改"/></a>' +
+                        '<a href="/billUpdate.jsp?' +
+                        'orderId=' + mapObj.orderId +
+                        '&goodsName=' + mapObj.goodsName +
+                        '&unit=' + mapObj.unit +
+                        '&count=' + mapObj.count +
+                        '&total=' + mapObj.total +
+                        '&supplierName=' + mapObj.supplierName +
+                        '&pay=' + mapObj.pay +
+                        '"><img src="img/xiugai.png" alt="修改" title="修改"/></a>' +
                         '<a href="javascript:void(0)" class="removeBill" orderId="' + mapObj.orderId + '"><img src="img/schu.png" alt="删除" title="删除"/></a>' +
                         '</td>' +
                         '</tr>')

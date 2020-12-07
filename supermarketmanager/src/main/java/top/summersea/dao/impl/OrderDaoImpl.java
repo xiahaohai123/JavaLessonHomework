@@ -1,6 +1,7 @@
 package top.summersea.dao.impl;
 
 import top.summersea.dao.OrderDao;
+import top.summersea.entity.Order;
 import top.summersea.util.JDBCUtil;
 
 import java.util.List;
@@ -67,6 +68,15 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
+    public Integer updateOrder(Order order) {
+        String sql = "UPDATE `order` " +
+                "SET " +
+                "pay = ? " +
+                "WHERE order_id = ?";
+        return jdbcUtil.executeUpdate(sql, order.getPay(), order.getOrderId());
+    }
+
+    @Override
     public Integer insertOrder(Map<String, Object> map) {
         String sql = "INSERT INTO `order` " +
                 "VALUES(" +
@@ -79,5 +89,7 @@ public class OrderDaoImpl implements OrderDao {
         Object[] objects = {map.get("orderId"), map.get("goodsName"),
                 map.get("count"), map.get("total"), map.get("pay"), map.get("createTime")};
         return jdbcUtil.executeUpdate(sql, objects);
+
+
     }
 }

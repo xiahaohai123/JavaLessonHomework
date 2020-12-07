@@ -2,6 +2,7 @@ package top.summersea.service.impl;
 
 import top.summersea.dao.OrderDao;
 import top.summersea.dao.impl.OrderDaoImpl;
+import top.summersea.entity.Order;
 import top.summersea.service.OrderService;
 import top.summersea.util.TimeUtil;
 
@@ -60,5 +61,10 @@ public class OrderServiceImpl implements OrderService {
     public boolean addOrder(Map<String, Object> map) {
         map.put("createTime", TimeUtil.getCurrentTimestamp());
         return orderDao.insertOrder(map) > 0;
+    }
+
+    @Override
+    public boolean updateOrderPay(Order order) {
+        return orderDao.updateOrder(order) > 0;
     }
 }
