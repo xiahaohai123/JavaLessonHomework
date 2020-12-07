@@ -45,4 +45,9 @@ public class TimeUtil {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日");
         return simpleDateFormat.format(date);
     }
+
+    public static Timestamp getCurrentTimestamp() {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        return timestamp;
+    }
 }

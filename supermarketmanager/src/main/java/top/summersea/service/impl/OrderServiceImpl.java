@@ -55,4 +55,10 @@ public class OrderServiceImpl implements OrderService {
 
         return orderList;
     }
+
+    @Override
+    public boolean addOrder(Map<String, Object> map) {
+        map.put("createTime", TimeUtil.getCurrentTimestamp());
+        return orderDao.insertOrder(map) > 0;
+    }
 }

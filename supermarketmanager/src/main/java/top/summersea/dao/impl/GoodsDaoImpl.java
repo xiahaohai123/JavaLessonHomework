@@ -5,6 +5,7 @@ import top.summersea.entity.Goods;
 import top.summersea.util.JDBCUtil;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @PackageName: top.summersea.dao.impl
@@ -85,5 +86,14 @@ public class GoodsDaoImpl implements GoodsDao {
     public Integer deleteGoods(String goodsId) {
         String sql = "DELETE FROM goods WHERE goods_id = ?;";
         return jdbcUtil.executeUpdate(sql, goodsId);
+    }
+
+    @Override
+    public Map<String, Object> selectGoodsAndSupplier(String goodsName) {
+        String sql = "SELECT goods_name, goods_price, unit, supplier_name " +
+                "FROM goods g LEFT JOIN supplier s " +
+                "ON g.supplier_id = s.supplier_id " +
+                "WHERE goods_name = ?";
+        return jdbcUtil.executeAssociationQueryForMap(sql, goodsName);
     }
 }

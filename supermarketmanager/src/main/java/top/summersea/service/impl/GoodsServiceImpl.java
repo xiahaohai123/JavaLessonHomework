@@ -6,6 +6,7 @@ import top.summersea.entity.Goods;
 import top.summersea.service.GoodsService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @PackageName: top.summersea.service.impl
@@ -50,4 +51,12 @@ public class GoodsServiceImpl implements GoodsService {
     public boolean deleteGoods(String goodsId) {
         return goodsDao.deleteGoods(goodsId) > 0;
     }
+
+    @Override
+    public Map<String, Object> getGoodsAndSupplier(String goodsName) {
+        return goodsDao.selectGoodsAndSupplier(goodsName);
+    }
+
+
+
 }

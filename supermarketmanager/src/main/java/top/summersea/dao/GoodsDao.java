@@ -3,6 +3,7 @@ package top.summersea.dao;
 import top.summersea.entity.Goods;
 
 import java.util.List;
+import java.util.Map;
 
 public interface GoodsDao {
 
@@ -15,4 +16,6 @@ public interface GoodsDao {
     Integer updateGoods(Goods goods);
 
     Integer deleteGoods(String goodsId);
+
+    Map<String, Object> selectGoodsAndSupplier(String goodsName);
 }

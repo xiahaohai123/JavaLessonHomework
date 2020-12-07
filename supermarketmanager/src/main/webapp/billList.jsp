@@ -130,7 +130,7 @@
             </select>
 
             <input type="button" value="查询" id="queryOrderButton"/>
-            <a href="billAdd.html">添加订单</a>
+            <a href="${pageContext.request.contextPath}/billAdd.jsp">添加订单</a>
         </div>
         <!--账单表格 样式和供应商公用-->
         <table class="providerTable" cellpadding="0" cellspacing="0" id="orderListTable">

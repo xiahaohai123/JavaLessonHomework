@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "OrderServlet", urlPatterns = "/order/*")
 public class OrderServlet extends HttpServlet {
@@ -65,5 +67,27 @@ public class OrderServlet extends HttpServlet {
         JSONObject jsonObject = JSONUtil.createSuccessJSONObject();
         jsonObject.put("data", orderList);
         response.getWriter().print(jsonObject.toJSONString());
+    }
+
+    private void addOrder(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("application/json;charset=utf-8");
+        String orderId = request.getParameter("orderId");
+        String goodsName = request.getParameter("goodsName");
+        String count = request.getParameter("count");
+        String total = request.getParameter("total");
+        String pay = request.getParameter("pay");
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("orderId", orderId);
+        map.put("goodsName", goodsName);
+        map.put("count", Integer.valueOf(count));
+        map.put("total", Double.valueOf(total));
+        map.put("pay", Boolean.valueOf(pay));
+
+        boolean b = orderService.addOrder(map);
+        JSONObject jsonObject = JSONUtil.createSuccessJSONObject();
+        jsonObject.put("insertState", b);
+        response.getWriter().print(jsonObject.toJSONString());
+
     }
 }

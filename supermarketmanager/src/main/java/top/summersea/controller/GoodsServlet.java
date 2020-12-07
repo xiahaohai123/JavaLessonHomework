@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "GoodsServlet", urlPatterns = "/goods/*")
 public class GoodsServlet extends HttpServlet {
@@ -134,6 +135,16 @@ public class GoodsServlet extends HttpServlet {
         response.setContentType("application/json;charset=utf-8");
         JSONObject successJSONObject = JSONUtil.createSuccessJSONObject();
         successJSONObject.put("deleteState", b);
+        response.getWriter().print(successJSONObject.toJSONString());
+    }
+
+    private void getGoodsAndSupplier(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("application/json;charset=utf-8");
+        String goodsName = request.getParameter("goodsName");
+
+        Map<String, Object> goodsAndSupplier = goodsService.getGoodsAndSupplier(goodsName);
+        JSONObject successJSONObject = JSONUtil.createSuccessJSONObject();
+        successJSONObject.put("data", goodsAndSupplier);
         response.getWriter().print(successJSONObject.toJSONString());
     }
 }

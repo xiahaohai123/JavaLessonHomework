@@ -4,6 +4,7 @@ import top.summersea.dao.OrderDao;
 import top.summersea.util.JDBCUtil;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @PackageName: top.summersea.dao.impl
@@ -63,5 +64,20 @@ public class OrderDaoImpl implements OrderDao {
 
 
         return objects;
+    }
+
+    @Override
+    public Integer insertOrder(Map<String, Object> map) {
+        String sql = "INSERT INTO `order` " +
+                "VALUES(" +
+                "?, " +
+                "(" +
+                "SELECT goods_id FROM goods WHERE goods_name = ?" +
+                ")" +
+                ", ?, ?, ?, ?" +
+                ");";
+        Object[] objects = {map.get("orderId"), map.get("goodsName"),
+                map.get("count"), map.get("total"), map.get("pay"), map.get("createTime")};
+        return jdbcUtil.executeUpdate(sql, objects);
     }
 }
