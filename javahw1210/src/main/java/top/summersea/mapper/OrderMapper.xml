@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.summersea.mapper.OrderMapper">
+    <resultMap id="orderMap" type="top.summersea.entity.Order">
+        <id property="orderId" column="order_id"/>
+        <result property="total" column="total"/>
+        <result property="pay" column="pay"/>
+        <result property="createTime" column="create_time"/>
+        <association property="goods" javaType="Goods">
+            <result property="goodsName" column="goods_name"/>
+            <association property="supplier" javaType="Supplier">
+                <result property="supplierName" column="supplier_name"/>
+            </association>
+        </association>
+    </resultMap>
+
+    <resultMap id="orderMap2" type="top.summersea.entity.Order">
+        <id property="orderId" column="order_id"/>
+        <result property="total" column="total"/>
+        <result property="pay" column="pay"/>
+        <result property="createTime" column="create_time"/>
+        <association property="goods" javaType="Goods">
+            <result property="goodsName" column="goods_name"/>
+            <association property="supplier" javaType="Supplier">
+                <id property="supplierId" column="supplier_id"/>
+                <result property="supplierName" column="supplier_name"/>
+                <result property="linkMan" column="link_man"/>
+                <result property="linkTel" column="link_tel"/>
+            </association>
+        </association>
+    </resultMap>
+
+    <select id="selectOrderByGoodsNameAndSupplierIdAndPayInMap" resultType="java.util.Map"
+            parameterType="java.util.Map">
+SELECT order_id, goods_name, supplier_name, total, pay, o.create_time
+FROM `order` o LEFT JOIN goods g ON o.goods_id=g.goods_id
+LEFT JOIN supplier s ON g.supplier_id = s.supplier_id
+WHERE g.goods_name LIKE #{goodsName} AND g.supplier_id =#{supplierId} AND pay = #{pay};
+    </select>
+
+    <select id="selectOrderByGoodsNameAndSupplierIdAndPayInOrder" resultMap="orderMap"
+            parameterType="java.util.Map">
+SELECT order_id, goods_name, supplier_name, total, pay, o.create_time
+FROM `order` o LEFT JOIN goods g ON o.goods_id=g.goods_id
+LEFT JOIN supplier s ON g.supplier_id = s.supplier_id
+WHERE g.goods_name LIKE #{goodsName} AND g.supplier_id =#{supplierId} AND pay = #{pay};
+    </select>
+
+    <select id="selectOrderByGoodsNameAndSupplierIdAndPayInOrderByPractice2" resultMap="orderMap2"
+            parameterType="java.util.Map">
+SELECT order_id, goods_name, g.supplier_id, supplier_name, link_man, link_tel, total, pay
+FROM `order` o LEFT JOIN goods g ON o.goods_id=g.goods_id
+LEFT JOIN supplier s ON g.supplier_id = s.supplier_id
+WHERE g.goods_name LIKE #{goodsName} AND g.supplier_id =#{supplierId} AND pay = #{pay};
+    </select>
+</mapper>

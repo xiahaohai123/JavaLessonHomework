@@ -20,7 +20,8 @@
             });
 
             $("#count").bind("input propertychange", function () {
-                $("#total").val($(this).val() * $("#goodsPrice").val())
+                // $("#total").val($(this).val() * $("#goodsPrice").val())
+                $("#total").val(Math.floor($(this).val() * $("#goodsPrice").val() * 100) / 100)
             })
         });
 

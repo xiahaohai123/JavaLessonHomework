@@ -95,12 +95,12 @@
                 </div>
                 <div>
                     <label for="total">总金额：</label>
-                    <input type="text" name="total" id="total" value="${param.total}"/>
+                    <input type="text" name="total" id="total" value="${param.total}" readonly="readonly"/>
                     <span>*</span>
                 </div>
                 <div>
                     <label for="supplierName">供应商：</label>
-                    <input type="text" name="supplierName" id="supplierName" value="${param.supplierName}"/>
+                    <input type="text" name="supplierName" id="supplierName" value="${param.supplierName}" readonly="readonly"/>
                     <span>*</span>
                 </div>
                 <div>

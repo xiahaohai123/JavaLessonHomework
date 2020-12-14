@@ -88,6 +88,7 @@ $(function () {
         }, function (data) {
             if (data.insertState === true) {
                 alert("注册成功！")
+                $(location).attr('href', '/userList.jsp');
             } else if (data.insertState === false) {
                 alert("注册失败！")
             } else {

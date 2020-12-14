@@ -32,7 +32,8 @@
                     "userType": $("input[name='userType']:checked").val()
                 }, function (data) {
                     if (data.updateState === true) {
-                        alert("修改成功！")
+                        alert("修改成功！");
+                        $(location).attr('href', '/userList.jsp');
                     } else if (data.updateState === false) {
                         alert("修改失败！")
                     } else {

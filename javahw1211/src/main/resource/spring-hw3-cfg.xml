@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="userInfoDaoImpl" class="top.summersea.hw3.dao.UserInfoDaoImpl"/>
+
+    <bean id="userInfoServiceImpl" class="top.summersea.hw3.service.UserInfoServiceImpl">
+        <property name="userInfoDao" ref="userInfoDaoImpl"/>
+    </bean>
+
+    <bean id="userInfoController" class="top.summersea.hw3.controller.UserInfoController">
+        <property name="userInfoService" ref="userInfoServiceImpl"/>
+    </bean>
+</beans>

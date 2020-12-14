@@ -121,6 +121,7 @@
             $.post("/supplier/registerSupplier", data, function (data) {
                 if (data.insertState === true) {
                     alert("添加成功！");
+                    $(location).attr('href', '/providerList.jsp');
                 } else if (data.insertState === false) {
                     alert("添加失败！")
                 } else {

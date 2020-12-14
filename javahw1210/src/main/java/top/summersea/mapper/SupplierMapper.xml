@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.summersea.mapper.SupplierMapper">
+    <resultMap id="orderMap" type="top.summersea.entity.Supplier">
+        <id property="supplierId" column="supplier_id"/>
+        <result property="supplierName" column="supplier_name"/>
+        <result property="linkMan" column="link_man"/>
+        <result property="linkTel" column="link_tel"/>
+        <collection property="orderList" ofType="Order">
+            <id property="orderId" column="order_id"/>
+            <result property="total" column="total"/>
+            <result property="pay" column="pay"/>
+            <association property="goods" javaType="Goods">
+                <result property="goodsName" column="goods_name"/>
+            </association>
+        </collection>
+    </resultMap>
+
+    <select id="practice3" resultMap="orderMap"
+            parameterType="java.lang.String">
+SELECT s.supplier_id, s.supplier_name,s.link_man,s.link_tel,order_id, g.goods_name, total, pay
+FROM supplier s LEFT JOIN goods g ON g.supplier_id = s.supplier_id
+LEFT JOIN `order` o ON o.goods_id=g.goods_id
+WHERE s.supplier_id = #{supplierId};
+    </select>
+</mapper>

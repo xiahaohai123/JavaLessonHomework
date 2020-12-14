@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="zhangGa" class="top.summersea.hw1.PersonSay">
+        <property name="name" value="张嘎"/>
+        <property name="wordToSay" value="三天不打小鬼子，手都痒痒！"/>
+    </bean>
+
+    <bean id="rod" class="top.summersea.hw1.PersonSay">
+        <property name="name" value="Rod"/>
+        <property name="wordToSay" value="世界上有10种人，认识二进制的和不认识二进制的。"/>
+    </bean>
+</beans>

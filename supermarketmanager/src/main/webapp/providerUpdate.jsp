@@ -35,7 +35,8 @@
         function update(data) {
             $.post("/supplier/updateSupplier", data, function (data) {
                 if (data.updateState === true) {
-                    alert("更新成功！")
+                    alert("更新成功！");
+                    $(location).attr('href', '/providerList.jsp');
                 } else if (data.updateState === false) {
                     alert("更新失败！")
                 } else {

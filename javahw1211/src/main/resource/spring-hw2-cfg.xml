@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="blackA4Printer" class="top.summersea.hw2.Printer">
+        <property name="name" value="blackA4Printer"/>
+        <property name="inkCartridge" ref="blackInk"/>
+        <property name="paper" ref="paperA4"/>
+    </bean>
+
+    <bean id="blackA3Printer" class="top.summersea.hw2.Printer">
+        <property name="name" value="blackA3Printer"/>
+        <property name="inkCartridge" ref="blackInk"/>
+        <property name="paper" ref="paperA3"/>
+    </bean>
+
+    <bean id="blueA4Printer" class="top.summersea.hw2.Printer">
+        <property name="name" value="blueA4Printer"/>
+        <property name="inkCartridge" ref="blueInk"/>
+        <property name="paper" ref="paperA4"/>
+    </bean>
+
+    <bean id="blueA3Printer" class="top.summersea.hw2.Printer">
+        <property name="name" value="blueA3Printer"/>
+        <property name="inkCartridge" ref="blueInk"/>
+        <property name="paper" ref="paperA3"/>
+    </bean>
+
+
+    <bean id="paperA4" class="top.summersea.hw2.Paper">
+        <property name="type" value="A4"/>
+    </bean>
+
+    <bean id="paperA3" class="top.summersea.hw2.Paper">
+        <property name="type" value="A3"/>
+    </bean>
+
+    <bean id="redInk" class="top.summersea.hw2.InkCartridge">
+        <property name="color" value="红"/>
+    </bean>
+
+    <bean id="blueInk" class="top.summersea.hw2.InkCartridge">
+        <property name="color" value="蓝"/>
+    </bean>
+
+    <bean id="blackInk" class="top.summersea.hw2.InkCartridge">
+        <property name="color" value="黑"/>
+    </bean>
+</beans>

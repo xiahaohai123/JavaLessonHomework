@@ -29,9 +29,7 @@ public class JDBCUtil {
             // 双亲委派机制的作用：防止类被重复加载
             Class.forName(driver);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
