@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--目标对象-->
+    <bean id="serviceDao" class="top.summersea.hw1.ServiceDaoImpl"/>
+
+    <!--切面类-->
+    <bean id="aspect" class="top.summersea.hw1.AspectByXML"/>
+    <!--面向切面编程-->
+    <aop:config>
+        <!--定义切点-->
+        <aop:pointcut id="action" expression="execution(* top.summersea.hw1.*.*(..))"/>
+        <!--定义切面-->
+        <aop:aspect ref="aspect">
+            <!-- 声明前置通知 (在切点方法被执行前调用)-->
+            <aop:before method="before" pointcut-ref="action"/>
+            <!-- 声明后置通知 (在切点方法被执行后调用)-->
+            <aop:after method="after" pointcut-ref="action"/>
+            <aop:around method="around" pointcut-ref="action"/>
+            <aop:after-returning method="afterReturn" pointcut-ref="action"/>
+            <aop:after-throwing method="afterThrowing" throwing="ex" pointcut-ref="action"/>
+        </aop:aspect>
+    </aop:config>
+
+
+</beans>
