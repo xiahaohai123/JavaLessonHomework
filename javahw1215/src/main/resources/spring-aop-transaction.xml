@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+
+
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <import resource="spring-jdbc.xml"/>
+
+    <bean id="userInfoDao" class="top.summersea.xml.dao.UserInfoDaoImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+
+    <bean id="userInfoService" class="top.summersea.xml.service.UserInfoServiceImpl">
+        <property name="userInfoDao" ref="userInfoDao"/>
+    </bean>
+
+    <bean id="userInfoController" class="top.summersea.xml.controller.UserInfoController">
+        <property name="userInfoService" ref="userInfoService"/>
+    </bean>
+
+    <tx:advice id="txAdvice">
+        <tx:attributes>
+            <tx:method name="*select*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="*find*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="*get*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="*insert*" propagation="REQUIRED"/>
+            <tx:method name="*add*" propagation="REQUIRED"/>
+            <tx:method name="*update*" propagation="REQUIRED" isolation="READ_UNCOMMITTED"/>
+            <tx:method name="*modify*" propagation="REQUIRED"/>
+            <tx:method name="*delete*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <aop:pointcut id="myCut" expression="execution(* top.summersea.xml.service.*.* (..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="myCut"/>
+    </aop:config>
+</beans>

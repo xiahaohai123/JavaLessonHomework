@@ -10,6 +10,7 @@ import java.util.StringJoiner;
  * @Author: 夏浩海
  * @Date: 2020/12/11 16:47
  */
+
 public class Paper {
     private String type;
 

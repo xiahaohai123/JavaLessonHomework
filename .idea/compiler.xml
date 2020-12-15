@@ -7,18 +7,19 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="javahw1214" />
-        <module name="javahw1209" />
-        <module name="javahw1126" />
-        <module name="javaexam1128" />
-        <module name="supermarketmanager" />
-        <module name="javahw1125" />
-        <module name="javahw1210" />
-        <module name="javahw1201" />
         <module name="javahw1127" />
-        <module name="javaexam1120" />
+        <module name="javahw1126" />
+        <module name="javahw1125" />
         <module name="javahw1211" />
+        <module name="javahw1210" />
+        <module name="javaexam1120" />
         <module name="WordReplacer" />
+        <module name="supermarketmanager" />
+        <module name="javahw1209" />
+        <module name="javaexam1128" />
         <module name="javahw1118" />
+        <module name="javahw1201" />
+        <module name="javahw1215" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="8">
@@ -33,6 +34,7 @@
       <module name="javahw1210" target="1.8" />
       <module name="javahw1211" target="1.8" />
       <module name="javahw1214" target="1.8" />
+      <module name="javahw1215" target="1.8" />
       <module name="supermarketmanager" target="1.7" />
       <module name="WordReplacer" target="1.5" />
     </bytecodeTargetLevel>
